@@ -1,0 +1,67 @@
+.feature-room_container {
+  min-width: 345px;
+  max-width: 345px;
+  animation-name: appear;
+  animation-duration: 0.5s;
+
+  @keyframes appear {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .feature-room_header {
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 17px;
+    padding: 0 16px;
+    cursor: pointer;
+    span {
+      font-weight: 600;
+    }
+  }
+
+  .files_tab {
+    padding: 0 16px;
+
+    .listImage_wrapper {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      grid-template-rows: 100px;
+      grid-column-gap: 4px;
+      grid-row-gap: 4px;
+      img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+
+    .listFile_wrapper {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+
+      .fileItem {
+        padding: 12px 0;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #ccc;
+        cursor: pointer;
+        img {
+          width: 52px;
+          height: 52px;
+        }
+        .fileInf {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+@use "../../../../variables";
+.auth-page {
+  display: flex;
+  justify-content: center;
+  background-image: url("../../../../assets/images/authCover.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+  .main-container {
+    padding-top: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .logo-icon {
+      margin-bottom: 10px;
+      width: auto;
+      height: 50px;
+      color: white;
+    }
+    .page-title {
+      color: white;
+      font-size: 22px;
+    }
+    .slide-wrapper {
+      display: flex !important;
+      justify-content: center;
+    }
+    .container {
+      width: 400px !important;
+
+      // padding: 24px;
+      svg {
+        margin-right: variables.$input-icon-margin-right;
+      }
+      box-shadow: 0 8px 24px rgb(21 48 142 / 14%);
+      // box-shadow: 0 0 2px 2px #e1e1e1;
+      margin-top: 20px;
+      background-color: white;
+    }
+    .auth-container {
+      .ant-tabs-nav-list {
+        width: 100%;
+        display: flex;
+        .ant-tabs-tab {
+          flex: 1 1 0%;
+          display: flex;
+          justify-content: center;
+          // font-size: 16px;
+        }
+      }
+    }
+    // Forgot Password
+    .forgot-container {
+      .forgot-password {
+        // animation: leftRight ease 1s;
+        padding: 24px;
+        .text {
+          margin-bottom: 15px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+.ant-modal-body {
+  .modal-upload-container {
+    height: 100%;
+    position: relative;
+    .ant-upload-picture-card-wrapper {
+      position: relative;
+      height: 100%;
+      .ant-upload-list-picture-card {
+        height: 100%;
+        // background-color: rgba(0, 0, 0, 0.5);
+        .ant-upload-select-picture-card {
+          width: 100% !important;
+          height: 100% !important;
+          border-radius: 50%;
+          z-index: 2;
+        }
+        .ant-upload-list-picture-card-container {
+          height: 100% !important;
+          width: 100% !important;
+          // border-radius: 50%;
+          overflow: hidden;
+        }
+        .ant-upload-list-item-error {
+          padding: 0px !important;
+          border: none;
+        }
+      }
+    }
+    .preview-after {
+      position: absolute;
+      top: 0;
+      left: 0px;
+      // background-color: rgba(255, 255, 255, 0.5);
+      // z-index: 1;
+      width: 252px;
+      height: 252px;
+      background: radial-gradient(
+        circle at center 126px,
+        transparent,
+        transparent 126px,
+        rgba(255, 255, 255, 0.4) 0px
+      );
+      // -webkit-filter: drop-shadow(0px -4px 4px black);
+    }
+  }
+}

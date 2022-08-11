@@ -1,0 +1,34 @@
+// @import url("../../../../../_variables.scss");
+@use "../../../../../variables";
+.left-main-wrapper {
+  height: 100vh;
+  border: 1px solid variables.$section-devider-color;
+  .header {
+    display: flex;
+    padding: 15px 15px;
+    align-items: center;
+    &-icon {
+      margin-left: 7px;
+      border-radius: 50%;
+      min-height: 32px;
+      min-width: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      &:hover {
+        background-color: variables.$chat-hover;
+      }
+    }
+    .search-icon {
+      margin-right: variables.$input-icon-margin-right;
+    }
+  }
+  .children {
+    height: calc(100% - 62px);
+    overflow-y: scroll;
+  }
+}
+.ant-transfer-list-header-dropdown {
+  display: none;
+}

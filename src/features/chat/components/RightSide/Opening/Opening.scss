@@ -1,0 +1,27 @@
+.opening-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    .opening-title {
+        text-align: center;
+        width: 415px;
+        margin-bottom: 40px;
+        span {
+            font-size: 22px;
+        }
+        p {
+            margin-top: 22px;
+            font-size: 14px;
+        }
+    }
+    .opening-content {
+        img {
+            object-fit: contain;
+            width: 381px;
+        }
+    }
+
+}

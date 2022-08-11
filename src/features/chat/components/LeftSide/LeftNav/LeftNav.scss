@@ -1,0 +1,75 @@
+@use "../../../../../variables";
+.left-nav {
+  height: 100vh;
+  width: 100vw;
+  & > .ant-tabs {
+    & > .ant-tabs-nav {
+      & > .ant-tabs-nav-wrap {
+        & > .ant-tabs-nav-list {
+          & > .ant-tabs-tab-active {
+            background-color: #0067f1;
+          }
+          // First tab which contains user avatar
+          & > div:first-child {
+            padding: 5px !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: auto;
+          }
+          .ant-tabs-tab {
+            margin: 0 !important;
+            padding: 15px 18px !important;
+          }
+          // Adjust gear icon
+          & > div:nth-last-child(2) {
+            display: flex;
+            align-items: flex-end;
+            flex: 1 1 0%;
+            cursor: auto;
+          }
+        }
+      }
+    }
+  }
+  .nav-icon {
+    height: 30px;
+    color: white;
+  }
+  .gear-icon {
+    cursor: pointer;
+  }
+  // Remove padding left in tab content
+  .ant-tabs-left
+    > .ant-tabs-content-holder
+    > .ant-tabs-content
+    > .ant-tabs-tabpane {
+    padding-left: 0;
+  }
+}
+.about-modal {
+  .upper {
+    display: flex;
+    align-items: center;
+    color: white;
+    background-color: variables.$base-color;
+    .icon {
+      font-size: 50px;
+      padding: 15px 20px;
+    }
+    .text {
+      font-size: 30px;
+    }
+  }
+  .lower {
+    padding: 15px 20px;
+    .text {
+      font-weight: bold;
+      img {
+        margin-left: 5px;
+        width: 20px;
+        height: auto;
+      }
+    }
+  }
+}

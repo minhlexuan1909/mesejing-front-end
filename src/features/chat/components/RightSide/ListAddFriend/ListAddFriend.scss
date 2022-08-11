@@ -1,0 +1,106 @@
+.listAddFriend-container {
+  .listAddFriend-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 16px;
+    width: 100%;
+    height: 68px;
+    border-bottom: 1px solid #e1e4ea;
+    .icons-addFriend {
+      width: 48px;
+      height: 48px;
+      margin-right: 12px;
+    }
+    span {
+      font-size: 24px;
+      font-weight: 600;
+    }
+  }
+
+  .listAddFriend {
+    display: flex;
+    flex-direction: column;
+    cursor: default;
+    padding-top: 16px;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    margin: 0 auto;
+    gap: 16px;
+    .title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .addFriend-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #e1e4ea;
+      padding: 16px 32px;
+
+      .inf-addFriend {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        img {
+          width: 78px;
+          height: 78px;
+          border-radius: 50%;
+        }
+
+        .inf-text {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          // align-items: center;
+          p {
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+            font-weight: 600;
+          }
+          span {
+            font-size: 14px;
+          }
+        }
+      }
+
+      .addFriend-btn {
+        display: flex;
+        gap: 12px;
+        font-weight: 600;
+        .btn-reject {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-width: 62px;
+          padding: 8px;
+          border-radius: 6px;
+          background-color: #fff;
+          color: #0068ff;
+          cursor: pointer;
+        }
+        .btn-reject:hover {
+          background-color: #e5efff;
+        }
+        .btn-accept:hover {
+          background-color: #004bb9;
+        }
+        .btn-accept {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-width: 62px;
+          padding: 8px;
+          border-radius: 6px;
+          background-color: #0068ff;
+          color: #fff;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

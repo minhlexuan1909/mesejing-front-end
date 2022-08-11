@@ -9,6 +9,10 @@ import PrivateRoutes from "./PrivateRoutes/PrivateRoutes";
 
 const routes = [
   {
+    path: "/",
+    element: <AuthPage />,
+  },
+  {
     path: "/minh",
     element: <Minh />,
   },

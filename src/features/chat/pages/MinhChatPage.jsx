@@ -72,7 +72,7 @@ const MinhChatPage = () => {
   };
 
   useEffect(() => {
-    const url = `ws://localhost:1883`;
+    const url = process.env.REACT_APP_MQTT_SERVER;
     // const url = 'ws://ip172-18-0-109-cacfnok33d5g00bo3thg-1883.direct.labs.play-with-docker.com/';
     // const url = process.env.MQTT_SERVER;
     // const url =

@@ -25,7 +25,7 @@ import {
   messageAction,
   messageSelector,
   moreMessageSelector,
-  hasMorePageSelector
+  hasMorePageSelector,
 } from "../../../services/message/messageSlice";
 import {
   sendMessageThunk,
@@ -41,7 +41,7 @@ import {
 import { getDetailRoomThunk } from "../../../services/room/roomThunk";
 import AddFriendToGroup from "../AddFriendToGroup/AddFriendToGroup";
 import axios from "axios";
-import Zoom from 'react-medium-image-zoom'
+import Zoom from "react-medium-image-zoom";
 
 const MainChat = ({ place, setFriendProfileVisible }) => {
   const dispatch = useDispatch();
@@ -142,14 +142,15 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
     setInputTextMessage(inputTextMessage + emojiObject.emoji);
   };
 
-  const uploadImg = async (e)  => {
+  const uploadImg = async (e) => {
     let uploadImg = await uploadImage(e.target.files[0]);
     dataSendMessage.content = uploadImg;
     dataSendMessage.contentType = "image";
     dispatch(sendMessageThunk({ ...dataSendMessage, token }));
-    setImgFile(`${process.env.REACT_APP_BASE_IMAGE_URL}${uploadImg.replaceAll(" ", "-")}`)
-
-  }
+    setImgFile(
+      `${process.env.REACT_APP_BASE_IMAGE_URL}${uploadImg.replaceAll(" ", "-")}`
+    );
+  };
 
   const uploadImage = async (fileImg) => {
     let data = new FormData();
@@ -177,7 +178,7 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
 
   useEffect(() => {
     if (payload.topic) {
-      let roomIDSockets = payload.topic.split('/')[1];
+      let roomIDSockets = payload.topic.split("/")[1];
       if (roomIDSockets === roomID) {
         dispatch(
           messageAction.setMessage([
@@ -186,7 +187,6 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
           ])
         );
       }
-      
     }
     console.log(payload);
   }, [payload]);
@@ -202,7 +202,6 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
         })
       );
     }
-
   }, [page, dispatch, token]);
 
   // Get message when room ID was changed
@@ -219,8 +218,6 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
     dispatch(getDetailRoomThunk({ roomID: roomID, token }));
     setIsShowDetail(false);
   }, [roomID, dispatch, token]);
-
-
 
   return (
     <div className="mainChat__container">
@@ -261,7 +258,10 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
             {/* <div className="header-option">
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </div> */}
-            <div className="header-option" onClick={() => setIsAddToGroupVisible(true)}>
+            <div
+              className="header-option"
+              onClick={() => setIsAddToGroupVisible(true)}
+            >
               <FontAwesomeIcon icon={faUserPlus} />
             </div>
             <div
@@ -297,7 +297,10 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
                 );
               } else {
                 if (index === 1 && item.type !== "system") {
-                  if (item.hasOwnProperty("owner") && item.owner._id === userID) {
+                  if (
+                    item.hasOwnProperty("owner") &&
+                    item.owner._id === userID
+                  ) {
                     return (
                       <div className="user-chat__container">
                         <span className="user_name">
@@ -305,12 +308,20 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
                         </span>
                         <div className="user-chat_message">
                           <div className="message_container">
-                            {item.contentType === 'message' && <p>{item.content}</p>}
-                            {item.contentType === 'image' && 
-                              <Zoom zoomMargin={20}><img src={`${process.env.REACT_APP_BASE_IMAGE_URL}${item.content.replaceAll(" ", "-")}`}
-                              alt=""
-                              style={{width: "300px"}} /></Zoom>
-                            }
+                            {item.contentType === "message" && (
+                              <p>{item.content}</p>
+                            )}
+                            {item.contentType === "image" && (
+                              <Zoom zoomMargin={20}>
+                                <img
+                                  src={`${
+                                    process.env.REACT_APP_BASE_IMAGE_URL
+                                  }${item.content.replaceAll(" ", "-")}`}
+                                  alt=""
+                                  style={{ width: "300px" }}
+                                />
+                              </Zoom>
+                            )}
                             <div className="status_message">
                               <span>{item.createAt}</span>
                             </div>
@@ -319,9 +330,8 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
                         <div className="user_img">
                           <img
                             src={`${
-                                    process.env.REACT_APP_BASE_IMAGE_URL
-                                  }${item.owner.avatar.replaceAll(" ", "-")}`
-                            }
+                              process.env.REACT_APP_BASE_IMAGE_URL
+                            }${item.owner.avatar.replaceAll(" ", "-")}`}
                             alt="User"
                           ></img>
                         </div>
@@ -335,18 +345,28 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
                         </span>
                         <div className="user_img">
                           <img
-                            src={`${process.env.REACT_APP_BASE_IMAGE_URL}${item.owner.avatar.replaceAll(" ", "-")}`}
+                            src={`${
+                              process.env.REACT_APP_BASE_IMAGE_URL
+                            }${item.owner.avatar.replaceAll(" ", "-")}`}
                             alt="User"
                           ></img>
                         </div>
                         <div className="user-chat_message another_user-chat_message">
                           <div className="message_container">
-                          {item.contentType === 'message' && <p>{item.content}</p>}
-                            {item.contentType === 'image' && 
-                              <Zoom zoomMargin={20}><img src={`${process.env.REACT_APP_BASE_IMAGE_URL}${item.content.replaceAll(" ", "-")}`}
-                              alt=""
-                              style={{width: "300px"}} /></Zoom>
-                            }
+                            {item.contentType === "message" && (
+                              <p>{item.content}</p>
+                            )}
+                            {item.contentType === "image" && (
+                              <Zoom zoomMargin={20}>
+                                <img
+                                  src={`${
+                                    process.env.REACT_APP_BASE_IMAGE_URL
+                                  }${item.content.replaceAll(" ", "-")}`}
+                                  alt=""
+                                  style={{ width: "300px" }}
+                                />
+                              </Zoom>
+                            )}
                             <div className="status_message">
                               <span>{item.createAt}</span>
                             </div>
@@ -365,34 +385,49 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
                   // Render Item which index > 0
                   // TH1: item.owner_id === userID
                   // TH2: item.owner_id !== userID
-                  if (item.hasOwnProperty("owner") && item.owner._id === userID) {
+                  if (
+                    item.hasOwnProperty("owner") &&
+                    item.owner._id === userID
+                  ) {
                     return (
                       <div className="user-chat__container">
-                        {(messageList[index - 1].hasOwnProperty("owner") && messageList[index - 1].owner._id !== userID) && (
-                          <span className="user_name">
-                            {item.owner.firstName + " " + item.owner.lastName}
-                          </span>
-                        )}
+                        {messageList[index - 1].hasOwnProperty("owner") &&
+                          messageList[index - 1].owner._id !== userID && (
+                            <span className="user_name">
+                              {item.owner.firstName + " " + item.owner.lastName}
+                            </span>
+                          )}
                         <div className="user-chat_message">
                           <div className="message_container">
-                          {item.contentType === 'message' && <p>{item.content}</p>}
-                            {item.contentType === 'image' && 
-                              <Zoom zoomMargin={20}><img src={`${process.env.REACT_APP_BASE_IMAGE_URL}${item.content.replaceAll(" ", "-")}`}
-                              alt=""
-                              style={{width: "300px"}} /></Zoom>
-                            }
+                            {item.contentType === "message" && (
+                              <p>{item.content}</p>
+                            )}
+                            {item.contentType === "image" && !!item.content && (
+                              <Zoom zoomMargin={20}>
+                                <img
+                                  src={`${
+                                    process.env.REACT_APP_BASE_IMAGE_URL
+                                  }${item.content.replaceAll(" ", "-")}`}
+                                  alt=""
+                                  style={{ width: "300px" }}
+                                />
+                              </Zoom>
+                            )}
                             <div className="status_message">
                               <span>{item.createAt}</span>
                             </div>
                           </div>
                         </div>
                         <div className="user_img">
-                          {(messageList[index - 1].hasOwnProperty("owner") && messageList[index - 1].owner._id !== userID) && (
-                            <img
-                              src={`${process.env.REACT_APP_BASE_IMAGE_URL}${item.owner.avatar.replaceAll(" ", "-")}`}
-                              alt="User"
-                            ></img>
-                          )}
+                          {messageList[index - 1].hasOwnProperty("owner") &&
+                            messageList[index - 1].owner._id !== userID && (
+                              <img
+                                src={`${
+                                  process.env.REACT_APP_BASE_IMAGE_URL
+                                }${item.owner.avatar.replaceAll(" ", "-")}`}
+                                alt="User"
+                              ></img>
+                            )}
                         </div>
                         {index === messageList.length - 1 && (
                           <div
@@ -405,27 +440,39 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
                   } else {
                     return (
                       <div className="user-chat__container another_user">
-                        {(messageList[index - 1].hasOwnProperty("owner") && messageList[index - 1].owner._id === userID) && (
-                          <span className="user_name">
-                            {item.owner.firstName + " " + item.owner.lastName}
-                          </span>
-                        )}
-                        <div className="user_img">
-                          {(messageList[index - 1].hasOwnProperty("owner") && messageList[index - 1].owner._id === userID) && (
-                            <img
-                              src={`${process.env.REACT_APP_BASE_IMAGE_URL}${item.owner.avatar.replaceAll(" ", "-")}`}
-                              alt="User"
-                            ></img>
+                        {messageList[index - 1].hasOwnProperty("owner") &&
+                          messageList[index - 1].owner._id === userID && (
+                            <span className="user_name">
+                              {item.owner.firstName + " " + item.owner.lastName}
+                            </span>
                           )}
+                        <div className="user_img">
+                          {messageList[index - 1].hasOwnProperty("owner") &&
+                            messageList[index - 1].owner._id === userID && (
+                              <img
+                                src={`${
+                                  process.env.REACT_APP_BASE_IMAGE_URL
+                                }${item.owner.avatar.replaceAll(" ", "-")}`}
+                                alt="User"
+                              ></img>
+                            )}
                         </div>
                         <div className="user-chat_message another_user-chat_message">
                           <div className="message_container">
-                            {item.contentType === 'message' && <p>{item.content}</p>}
-                            {item.contentType === 'image' && 
-                              <Zoom zoomMargin={20}><img src={`${process.env.REACT_APP_BASE_IMAGE_URL}${item.content.replaceAll(" ", "-")}`}
-                              alt=""
-                              style={{width: "300px"}} /></Zoom>
-                            }
+                            {item.contentType === "message" && (
+                              <p>{item.content}</p>
+                            )}
+                            {item.contentType === "image" && (
+                              <Zoom zoomMargin={20}>
+                                <img
+                                  src={`${
+                                    process.env.REACT_APP_BASE_IMAGE_URL
+                                  }${item.content.replaceAll(" ", "-")}`}
+                                  alt=""
+                                  style={{ width: "300px" }}
+                                />
+                              </Zoom>
+                            )}
                             <div className="status_message">
                               <span>{item.createAt}</span>
                             </div>
@@ -511,7 +558,12 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
         </div>
       </div>
       {isShowDetail && <RoomDetail roomDetail={roomDetail} />}
-      {isAddToGroupVisible && <AddFriendToGroup isAddToGroupVisible={isAddToGroupVisible}  setIsAddToGroupVisible={setIsAddToGroupVisible}/>}
+      {isAddToGroupVisible && (
+        <AddFriendToGroup
+          isAddToGroupVisible={isAddToGroupVisible}
+          setIsAddToGroupVisible={setIsAddToGroupVisible}
+        />
+      )}
     </div>
   );
 };

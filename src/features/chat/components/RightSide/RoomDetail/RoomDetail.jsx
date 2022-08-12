@@ -59,7 +59,6 @@ const RoomDetail = ({roomDetail}) => {
 
   const handleCfRoomSettings = async () => {
     let upLoadImg = await uploadImage(avatarInputFile);
-    console.log(upLoadImg);
 
     dispatch(setAvatarOfRoomThunk({
       roomID: roomID, 

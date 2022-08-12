@@ -16,9 +16,16 @@ import {
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { tokenSelector, userIdSelector, usernameSelector } from "../../../../auth/services/authSlice";
+import {
+  tokenSelector,
+  userIdSelector,
+  usernameSelector,
+} from "../../../../auth/services/authSlice";
 import { listFriendsJoinRoomSelector } from "../../../../profile/services/friend/friendSlice";
-import { createRoomThunk , addUsersThunk} from "../../../services/room/roomThunk";
+import {
+  createRoomThunk,
+  addUsersThunk,
+} from "../../../services/room/roomThunk";
 import LeftNavItem from "../../../../../components/LeftNavItem/LeftNavItem";
 import { getListFriendsJoinRoomThunk } from "../../../../profile/services/friend/friendThunk";
 import { selectedRoomSelector } from "../../../services/room/roomSlice";
@@ -53,27 +60,24 @@ const AddFriendToGroup = ({ isAddToGroupVisible, setIsAddToGroupVisible }) => {
   };
 
   // Upload image to server to get image name
-  
 
   // Create group
   const onFinishCreateGroup = async (values) => {
-    let participants = []
+    let participants = [];
     listAddToGroup.forEach((item) => {
       let index = parseInt(item);
       let data = {
-        "userId":listFriendInit[index]._id,
-        "firstName": listFriendInit[index].firstName,
-        "lastName": listFriendInit[index].lastName
-      }
-      participants.push(data)
+        userId: listFriendInit[index]._id,
+        firstName: listFriendInit[index].firstName,
+        lastName: listFriendInit[index].lastName,
+      };
+      participants.push(data);
     });
     // let data = {
     //   roomID: roomID,
     //   token:
     // }
-    dispatch(addUsersThunk({roomID, token, participants}))
-    console.log(participants);
-    
+    dispatch(addUsersThunk({ roomID, token, participants }));
 
     // console.log(listFriendInit);
     // console.log(listFriend);
@@ -82,7 +86,6 @@ const AddFriendToGroup = ({ isAddToGroupVisible, setIsAddToGroupVisible }) => {
     setListSelectedFriend([]);
     setListAddToGroup([]);
     setIsAddToGroupVisible(false);
-
   };
 
   const onChangeAddToGroup = (targetKeys) => {
@@ -101,7 +104,7 @@ const AddFriendToGroup = ({ isAddToGroupVisible, setIsAddToGroupVisible }) => {
     //   };
     //   mockData.push(data);
     // }
-    dispatch(getListFriendsJoinRoomThunk({roomID, token}))
+    dispatch(getListFriendsJoinRoomThunk({ roomID, token }));
     resetListFriend();
   }, []);
 
@@ -122,7 +125,6 @@ const AddFriendToGroup = ({ isAddToGroupVisible, setIsAddToGroupVisible }) => {
       width="700px"
     >
       <Form onFinish={onFinishCreateGroup}>
-        
         <Form.Item>
           <Transfer
             dataSource={listFriend}
@@ -177,7 +179,6 @@ const AddFriendToGroup = ({ isAddToGroupVisible, setIsAddToGroupVisible }) => {
           </div>
         </Form.Item>
       </Form>
-      
     </Modal>
   );
 };

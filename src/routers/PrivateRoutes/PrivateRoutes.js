@@ -12,7 +12,6 @@ const PrivateRoutes = ({ component }) => {
   const isEmailConfirmed = useSelector(isEmailConfirmedSelector);
   const isLoginSuccessful = useSelector(isLoginSuccesfulSelector);
   if (token && isEmailConfirmed && isLoginSuccessful) {
-    // console.log("abcs");
     return component;
   } else return <Navigate to="/auth" />;
 };

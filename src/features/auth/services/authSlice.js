@@ -57,12 +57,10 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loginThunk.pending, (state, action) => {
-        // console.log("Hello");
         state.emailOrUsername = action.meta.arg.emailOrUsername;
         state.isEmailConfirmed = null;
       })
       .addCase(loginThunk.fulfilled, (state, action) => {
-        console.log(action.payload.data);
         state.token = action.payload.data.token;
         state.isEmailConfirmed = true;
         state.isLoginSuccesful = true;
@@ -95,7 +93,6 @@ const authSlice = createSlice({
         toast.success("Confirm email successfully ");
       })
       .addCase(confirmEmailThunk.rejected, (state, action) => {
-        console.log(action.payload.data.error);
         toast.error(action.payload.data.error);
       });
 
@@ -107,7 +104,6 @@ const authSlice = createSlice({
         state.isForgetPass = true;
       })
       .addCase(forgotPasswordThunk.rejected, (state, action) => {
-        console.log(action.payload);
         toast.error(action.payload.data.error);
       });
 

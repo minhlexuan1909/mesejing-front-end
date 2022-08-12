@@ -11,6 +11,5 @@ const axiosInstance = axios.create({
   },
   paramsSerializer: (params) => queryString.stringify(params),
 });
-console.log(process.env.REACT_APP_BASE_API_URL);
 
 export default axiosInstance;

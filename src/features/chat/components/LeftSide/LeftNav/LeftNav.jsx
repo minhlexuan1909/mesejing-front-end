@@ -53,7 +53,7 @@ const LeftNav = (props, ref) => {
 
   const [isNewFriendRequest, setIsNewFriendRequest] = useState(true);
   const [isAboutVisible, setIsAboutVisible] = useState(false);
-  const noti = false;
+  const [activeKey, setActiveKey] = useState("2");
 
   const handleLogoutClick = () => {
     dispatch(authAction.removeUser());
@@ -133,13 +133,12 @@ const LeftNav = (props, ref) => {
     <div className="left-nav" ref={ref}>
       <ModalMyProfile />
       <Tabs
+        destroyInactiveTabPanes={true}
         defaultActiveKey={"2"}
         tabPosition="left"
         tabBarStyle={{ backgroundColor: "#2f80ed", height: "100vh" }}
         onChange={(activeKey) => {
-          if (activeKey === "4") {
-            setIsNewFriendRequest(false);
-          }
+          setActiveKey(activeKey);
         }}
       >
         <TabPane
@@ -166,7 +165,7 @@ const LeftNav = (props, ref) => {
               <MainChatList />
             </Col>
             <Col lg={18} md={16} sm={0} xs={0}>
-              {selectedRoom ? <MainChat place="chat-list" /> : <Opening />}
+              {selectedRoom && activeKey === "2" ? <MainChat /> : <Opening />}
             </Col>
           </div>
         </TabPane>
@@ -196,9 +195,8 @@ const LeftNav = (props, ref) => {
               <FriendList />
             </Col>
             <Col lg={18} md={16} sm={0} xs={0}>
-              {/* <MainChat setFriendProfileVisible={setFriendProfileVisible} /> */}
-              {selectedRoom ? (
-                <MainChat place="friend-list" />
+              {selectedRoom && activeKey === "4" ? (
+                <MainChat />
               ) : (
                 <ListAddFriend />
               )}

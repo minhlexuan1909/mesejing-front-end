@@ -11,7 +11,7 @@ const selfProfileSlice = createSlice({
     emailProfile: "default@gmail.com",
     avatarProfile: "default",
     userName: null,
-    cover: "default"
+    cover: "default",
   },
   reducers: {
     setIsShowOwnProfile: (state, action) => {
@@ -19,24 +19,19 @@ const selfProfileSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(getMeThunk.fulfilled, (state, action) => {
-        state.firstNameProfile = action.payload.data.user.firstName;
-        state.lastNameProfile = action.payload.data.user.lastName;
-        state.avatarProfile = action.payload.data.user.avatar;
-        state.emailProfile = action.payload.data.user.email;
-        state.dateOfBirthProfile = action.payload.data.user.dob;
-        state.userName = action.payload.data.user.username;
-        state.cover = action.payload.data.user.cover;
-      });
+    builder.addCase(getMeThunk.fulfilled, (state, action) => {
+      state.firstNameProfile = action.payload.data.user.firstName;
+      state.lastNameProfile = action.payload.data.user.lastName;
+      state.avatarProfile = action.payload.data.user.avatar;
+      state.emailProfile = action.payload.data.user.email;
+      state.dateOfBirthProfile = action.payload.data.user.dob;
+      state.userName = action.payload.data.user.username;
+      state.cover = action.payload.data.user.cover;
+    });
 
     builder
-      .addCase(updateMyProfileThunk.fulfilled, (state, action) => {
-        console.log("Update profile successfully")
-      })
-      .addCase(updateMyProfileThunk.rejected, (state, action) => {
-        console.log(action)
-      });
+      .addCase(updateMyProfileThunk.fulfilled, (state, action) => {})
+      .addCase(updateMyProfileThunk.rejected, (state, action) => {});
   },
 });
 

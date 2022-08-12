@@ -82,7 +82,11 @@ const LeftNavItem = ({
 
   const handleItemOnClick = () => {
     if (type === "friend" || type === "room") {
-      dispatch(updateLastSeenMessageThunk({ roomID: room._id, token: token }));
+      if (room) {
+        dispatch(
+          updateLastSeenMessageThunk({ roomID: room._id, token: token })
+        );
+      }
     }
     if (type === "friend") {
       dispatch(

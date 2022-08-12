@@ -75,7 +75,6 @@ const ModalAddToGroup = ({ isAddToGroupVisible, setIsAddToGroupVisible }) => {
           fmData,
           config
         );
-        console.log("server res: ", res);
         return res.data.filename;
       } catch (err) {
         console.log("Eroor: ", err);
@@ -103,7 +102,6 @@ const ModalAddToGroup = ({ isAddToGroupVisible, setIsAddToGroupVisible }) => {
     setListAddToGroup([]);
 
     const avatarGroup = await uploadImage();
-    console.log("Filename:" + avatarGroup);
     const apiData = {
       name,
       participants,

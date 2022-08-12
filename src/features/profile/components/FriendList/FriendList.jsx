@@ -38,7 +38,7 @@ const MainWrapperChild = ({ set_visible_add }) => {
         <SubMenu key="sub1" title={`Bạn bè (${listFriended.length})`}>
           {listFriended.map((friend, index) => (
             <LeftNavItem
-              key={index}
+              key={friend._id}
               title={friend.firstName + " " + friend.lastName}
               img={`${
                 process.env.REACT_APP_BASE_IMAGE_URL

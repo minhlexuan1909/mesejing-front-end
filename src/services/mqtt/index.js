@@ -50,7 +50,6 @@ const HookMqtt = () => {
 
   useEffect(() => {
     if (client) {
-      console.log(client);
       client.on("connect", () => {
         dispatch(mqttAction.setConnectionStatus("Connected"));
       });

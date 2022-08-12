@@ -19,7 +19,6 @@ const FriendAPI = {
   },
   acceptFriend: (token, friendId) => {
     const url = `api/v1/users/friends/accept/${friendId}`;
-    console.log(token);
     return axiosInstance.patch(url, {}, bearerOption(token));
   },
   rejectFriend: (token, friendId) => {

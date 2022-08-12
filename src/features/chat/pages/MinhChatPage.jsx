@@ -99,7 +99,6 @@ const MinhChatPage = () => {
     if (client) {
       client.on("connect", () => {
         dispatch(mqttAction.setConnectionStatus("Connected"));
-        console.log("connected");
       });
       client.on("error", (err) => {
         console.error("Connection error: ", err);
@@ -125,14 +124,11 @@ const MinhChatPage = () => {
 
   useEffect(() => {
     const topic = payload.topic;
-    console.log(payload);
     if (topic) {
       const message = payload.message;
       const event = payload.message.event;
-      console.log(payload);
       if (event === "messageNew") {
         const roomID = topic.slice(5);
-        console.log(roomID);
         dispatch(roomAction.pushRoomToTop(roomID));
         const lastMessage = payload.message.content;
         const isSeen = userId === payload.message.owner._id;

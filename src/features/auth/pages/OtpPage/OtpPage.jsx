@@ -28,7 +28,6 @@ const OtpPage = () => {
   const isEmailConfirmed = useSelector(isEmailConfirmedSelector);
 
   const handleOnClick = () => {
-    console.log("Back to login");
     dispatch(authAction.removeEmailOrUsername());
     dispatch(authAction.setIsEmailConfirmed(null));
     dispatch(authAction.setIsForgetPass(false));
@@ -36,7 +35,6 @@ const OtpPage = () => {
   };
 
   const handleResendOtp = () => {
-    console.log(emailOrUsername);
     if (isForgetPass) {
       dispatch(resendOtpPasswordThunk({ emailOrUsername }));
     } else {
@@ -44,9 +42,7 @@ const OtpPage = () => {
     }
   };
   useEffect(() => {
-    console.log(emailOrUsername, isForgetPass);
     if (emailOrUsername === null && isForgetPass === false) {
-      console.log("abc");
       navigate("/auth");
     }
   }, [emailOrUsername, isForgetPass, navigate]);
@@ -58,7 +54,6 @@ const OtpPage = () => {
   }, [isForgetOtpConfirmed, isForgetPass]);
 
   useEffect(() => {
-    console.log("abc");
     if (isForgetPass) {
       dispatch(resendOtpPasswordThunk({ emailOrUsername }));
     } else {

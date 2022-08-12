@@ -18,18 +18,14 @@ const ModalUploadImage = ({
   const [fileList, setFileList] = useState([]);
   const [isImagePicked, setIsImagePicked] = useState(false);
 
-  const onModalOk = () => {
-    console.log("oke");
-  };
+  const onModalOk = () => {};
 
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
 
   const onPreview = async (file) => {
-    console.log("Abc");
     let src = file.url;
-    console.log(src);
     if (!src) {
       src = await new Promise((resolve) => {
         const reader = new FileReader();
@@ -37,16 +33,13 @@ const ModalUploadImage = ({
         reader.onload = () => resolve(reader.result);
       });
     }
-    console.log(src);
     const image = new Image();
     image.src = src;
     const imgWindow = window.open(src);
     imgWindow.document.write(image.outerHTML);
   };
 
-  const onRemove = () => {
-    console.log("remove");
-  };
+  const onRemove = () => {};
 
   useEffect(() => {
     if (fileList.length) {
@@ -56,8 +49,6 @@ const ModalUploadImage = ({
 
   const uploadImage = async (options) => {
     const { onSuccess, onError, file, onProgress } = options;
-    console.log(options);
-    console.log(onSuccess);
     // onSuccess
     const fmData = new FormData();
 

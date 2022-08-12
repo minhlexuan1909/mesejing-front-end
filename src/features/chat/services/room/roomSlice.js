@@ -52,12 +52,9 @@ const roomSlice = createSlice({
           (room) => room.isGroup === false && room.name === name
         );
         state.selectedRoom = room._id;
-        console.log(room.name);
       }
     },
-    setListUserDeleting: (state, action) => {
-      console.log(state.listUsersInRoom, action);
-    },
+    setListUserDeleting: (state, action) => {},
     removeAllRooms: (state, action) => {
       state.rooms = [];
     },
@@ -109,7 +106,6 @@ const roomSlice = createSlice({
     builder
       .addCase(deleteUserInRoomThunk.pending, (state, action) => {})
       .addCase(deleteUserInRoomThunk.fulfilled, (state, action) => {
-        console.log("Delete user succesfully");
         const room = state.rooms.find(
           (room) => room._id === state.selectedRoom
         );
@@ -121,13 +117,11 @@ const roomSlice = createSlice({
     builder
       .addCase(leaveRoomThunk.pending, (state, action) => {})
       .addCase(leaveRoomThunk.fulfilled, (state, action) => {
-        console.log("leave room succesfully");
       })
       .addCase(leaveRoomThunk.rejected, (state, action) => {});
     builder
       .addCase(addUsersThunk.pending, (state, action) => {})
       .addCase(addUsersThunk.fulfilled, (state, action) => {
-        console.log("add users succesfully");
       })
       .addCase(addUsersThunk.rejected, (state, action) => {});
     builder.addCase(updateLastSeenMessageThunk.fulfilled, (state, action) => {

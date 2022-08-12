@@ -34,7 +34,6 @@ const userSearchSlice = createSlice({
         state.isLoadingMoreUserFound = false;
       })
       .addCase(searchUserThunk.rejected, (state, action) => {
-        console.log(action.payload.data.error);
         state.isLoadingMoreUserFound = false;
       });
     buider.addCase(requestFriendThunk.fulfilled, (state, action) => {

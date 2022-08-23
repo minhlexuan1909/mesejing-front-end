@@ -2,7 +2,7 @@ import "./App.css";
 import "antd/dist/antd.min.css";
 import "react-toastify/dist/ReactToastify.css";
 
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import AppRoute from "./routers";
@@ -23,9 +23,9 @@ function App() {
         theme="colored"
       />
 
-      <BrowserRouter>
+      <HashRouter>
         <AppRoute />
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }

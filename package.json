@@ -2,6 +2,10 @@
   "name": "front-end",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "16.17.0",
+    "npm": "8.10.0"
+  },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@fortawesome/fontawesome-svg-core": "^6.1.0",

@@ -2,12 +2,14 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Form, Input } from "antd";
 import React, { useEffect } from "react";
+import { CircularProgress } from "react-cssfx-loading/lib";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   authAction,
   emailOrUsernameSelector,
+  isChangingPasswordSelector,
   isForgetPassSelector,
 } from "../../services/authSlice";
 import {
@@ -20,6 +22,7 @@ const ForgotResetPassForm = () => {
   const dispatch = useDispatch();
 
   const emailOrUsername = useSelector(emailOrUsernameSelector);
+  const isChangingPassword = useSelector(isChangingPasswordSelector);
 
   const handleResetPass = (values) => {
     const data = { ...values, emailOrUsername };
@@ -64,8 +67,9 @@ const ForgotResetPassForm = () => {
           htmlType="submit"
           style={{ width: "100%" }}
           size="large"
+          disabled={isChangingPassword}
         >
-          Save
+          {isChangingPassword ? <CircularProgress height="100%" /> : "Save"}
         </Button>
       </Form.Item>
     </AuthForm>

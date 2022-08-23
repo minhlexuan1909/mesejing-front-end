@@ -11,6 +11,8 @@ const messageSlice = createSlice({
     messageList: [],
     loadMoreMessage: [],
     hasMorePage: true,
+    // Loading state
+    isGettingMessage: false,
   },
   reducers: {
     setMessage: (state, action) => {
@@ -26,18 +28,23 @@ const messageSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(sendMessageThunk.pending, (state, action) => {})
-      .addCase(sendMessageThunk.fulfilled, (state, action) => {
-      })
+      .addCase(sendMessageThunk.fulfilled, (state, action) => {})
       .addCase(sendMessageThunk.rejected, (state, action) => {});
 
     builder
-      .addCase(getMessageRoomThunk.pending, (state, action) => {})
+      .addCase(getMessageRoomThunk.pending, (state, action) => {
+        state.isGettingMessage = true;
+      })
       .addCase(getMessageRoomThunk.fulfilled, (state, action) => {
         // state.messageList = action.payload.data.messages.slice(0).reverse();
         // console.log(state.messageList)
         // state.messageList = [...state.messageList.slice(0), ...action.payload.data.messages.slice(0).reverse()]
-        state.messageList.push.apply(
-          state.messageList,
+        state.isGettingMessage = false;
+        // state.messageList.push.apply(
+        //   state.messageList,
+        //   action.payload.data.messages
+        // );
+        state.messageList = state.messageList.concat(
           action.payload.data.messages
         );
         if (action.payload.data.pagination.hasOwnProperty("next")) {
@@ -48,6 +55,7 @@ const messageSlice = createSlice({
         // console.log(action.payload.data.messages)
       })
       .addCase(getMessageRoomThunk.rejected, (state, action) => {
+        state.isGettingMessage = false;
         console.log("UNU can't get");
       });
     builder
@@ -71,3 +79,5 @@ export const hasMorePageSelector = (state) => state.message.hasMorePage;
 // export const messageSelector = (state) => state.room.message;
 // export const roomsSelector = (state) => state.room.rooms;
 // export const selectedRoomSelector = (state) => state.room.selectedRoom;
+export const isGettingMessageSelector = (state) =>
+  state.message.isGettingMessage;

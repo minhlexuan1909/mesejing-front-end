@@ -7,7 +7,7 @@ import {
   rejectFriendThunk,
   requestFriendThunk,
   unfriendThunk,
-  getListFriendsJoinRoomThunk
+  getListFriendsJoinRoomThunk,
 } from "./friendThunk";
 
 const friendSlice = createSlice({
@@ -23,7 +23,10 @@ const friendSlice = createSlice({
     ],
     isFriendProfileVisible: false,
     listFriendInqueues: [],
-    listFriendsJoinRoom: []
+    listFriendsJoinRoom: [],
+
+    // Loading state
+    isGettingFriend: false,
   },
   reducers: {
     setIsFriendProfileVisible: (state, action) => {
@@ -35,11 +38,16 @@ const friendSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getListFriendedThunk.pending, (state, aciton) => {})
+      .addCase(getListFriendedThunk.pending, (state, aciton) => {
+        state.isGettingFriend = true;
+      })
       .addCase(getListFriendedThunk.fulfilled, (state, action) => {
+        state.isGettingFriend = false;
         state.listFriended = action.payload.data.friendeds;
       })
-      .addCase(getListFriendedThunk.rejected, (state, aciton) => {});
+      .addCase(getListFriendedThunk.rejected, (state, aciton) => {
+        state.isGettingFriend = false;
+      });
     builder
       .addCase(requestFriendThunk.pending, (state, action) => {})
       .addCase(requestFriendThunk.fulfilled, (state, action) => {
@@ -102,5 +110,6 @@ export const isFriendProfileVisibleSelector = (state) =>
   state.friend.isFriendProfileVisible;
 export const listFriendInqueuesSelector = (state) =>
   state.friend.listFriendInqueues;
-  export const listFriendsJoinRoomSelector = (state) =>
+export const listFriendsJoinRoomSelector = (state) =>
   state.friend.listFriendsJoinRoom;
+export const isGettingFriendSelector = (state) => state.friend.isGettingFriend;

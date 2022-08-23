@@ -1,11 +1,13 @@
 import { Button, Form, Input } from "antd";
 import React from "react";
+import { CircularProgress } from "react-cssfx-loading/lib";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import {
   authAction,
   emailOrUsernameSelector,
+  isConfirmOtpSelector,
   isForgetOtpConfirmedSelector,
   isForgetPassSelector,
 } from "../../services/authSlice";
@@ -20,6 +22,7 @@ const OtpForm = () => {
 
   const emailOrUsername = useSelector(emailOrUsernameSelector);
   const isForgetPass = useSelector(isForgetPassSelector);
+  const isConfirmOtp = useSelector(isConfirmOtpSelector);
 
   const handleOtp = (values) => {
     if (isForgetPass) {
@@ -47,8 +50,9 @@ const OtpForm = () => {
           htmlType="submit"
           style={{ width: "100%" }}
           size="large"
+          disabled={isConfirmOtp}
         >
-          Send
+          {isConfirmOtp ? <CircularProgress height="100%" /> : "Send"}
         </Button>
       </Form.Item>
     </AuthForm>

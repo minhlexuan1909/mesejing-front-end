@@ -4,11 +4,15 @@ import { Button, Form, Input, Row, Col } from "antd";
 import React from "react";
 import AuthForm from "../AuthForm/AuthForm";
 import "../../../../_animations.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registerThunk } from "../../services/authThunk";
+import { isRegisterSelector } from "../../services/authSlice";
+import { CircularProgress } from "react-cssfx-loading/lib";
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
+
+  const isRegister = useSelector(isRegisterSelector);
 
   const handleRegister = (values) => {
     dispatch(registerThunk(values));
@@ -99,8 +103,9 @@ const RegisterForm = () => {
             htmlType="submit"
             style={{ width: "100%" }}
             size="large"
+            disabled={isRegister}
           >
-            Register
+            {isRegister ? <CircularProgress height="100%" /> : "Register"}
           </Button>
         </Form.Item>
       </AuthForm>

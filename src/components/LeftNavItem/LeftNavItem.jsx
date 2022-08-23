@@ -13,7 +13,9 @@ import { friendAction } from "../../features/profile/services/friend/friendSlice
 import { userProfileAction } from "../../features/profile/services/userProfile/userProfileSlice";
 import { roomAction } from "../../features/chat/services/room/roomSlice";
 import { updateLastSeenMessageThunk } from "../../features/chat/services/room/roomThunk";
+import Shimmer from "react-shimmer-effect";
 const LeftNavItem = ({
+  isLoading = false,
   title,
   lastMessage,
   img,
@@ -105,19 +107,34 @@ const LeftNavItem = ({
         style={border ? { border: "1px solid #e1e4ea" } : {}}
         onClick={handleItemOnClick}
       >
-        <UserWithStatus size={size} img={img} />
+        {isLoading ? (
+          <Shimmer>
+            <div
+              style={{ width: size, height: size, borderRadius: "50%" }}
+            ></div>
+          </Shimmer>
+        ) : (
+          <UserWithStatus size={size} img={img} />
+        )}
         <div className="main-content">
-          <div
-            className={`title ${
-              room &&
-              room.hasOwnProperty("lastMessage") &&
-              room.lastMessage.isSeen === false
-                ? "unseen-last-message"
-                : ""
-            }`}
-          >
-            {title}
-          </div>
+          {isLoading ? (
+            <Shimmer>
+              <div style={{ height: "10px", marginBottom: "7px" }}></div>
+              <div style={{ height: "10px", width: "50px" }}></div>
+            </Shimmer>
+          ) : (
+            <div
+              className={`title ${
+                room &&
+                room.hasOwnProperty("lastMessage") &&
+                room.lastMessage.isSeen === false
+                  ? "unseen-last-message"
+                  : ""
+              }`}
+            >
+              {title}
+            </div>
+          )}
           <div className="last-message">{lastMessage}</div>
         </div>
         <div className="right-side">{rightSide}</div>

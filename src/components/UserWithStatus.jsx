@@ -10,6 +10,7 @@ const UserWithStatus = ({ img, size, status, onClick = null }) => {
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
+    cursor: "pointer",
   };
   return <div onClick={onClick} style={style}></div>;
 };

@@ -5,12 +5,34 @@ import MainWrapper from "../MainWrapper/MainWrapper";
 import "./MainChatList.scss";
 import LeftNavItem from "../../../../../components/LeftNavItem/LeftNavItem";
 import { useDispatch, useSelector } from "react-redux";
-import { roomAction, roomsSelector } from "../../../services/room/roomSlice";
+import {
+  isGettingRoomSelector,
+  roomAction,
+  roomsSelector,
+} from "../../../services/room/roomSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import "./MainChatList.scss";
 
 const { TabPane } = Tabs;
 const MainChatList = () => {
   const rooms = useSelector(roomsSelector);
+  const isGettingRoom = useSelector(isGettingRoomSelector);
+
   const dispatch = useDispatch();
+
+  if (rooms.length === 5 && !isGettingRoom) {
+    return (
+      <MainWrapper>
+        <div className="main-chat-list__error">
+          <FontAwesomeIcon icon={faCircleExclamation} size="3x" />
+          <span className="main-chat-list__error-text">
+            Loading failed. Please reload this page
+          </span>
+        </div>
+      </MainWrapper>
+    );
+  }
   return (
     <div className="left-main-chat-list">
       <MainWrapper>
@@ -22,31 +44,23 @@ const MainChatList = () => {
             {rooms.map((room, index) => (
               <LeftNavItem
                 key={index}
+                isLoading={isGettingRoom}
                 title={room.name}
                 lastMessage={
-                  room.hasOwnProperty("lastMessage")
-                    ? room.lastMessage.content
-                    : ""
+                  !!room.hasOwnProperty("lastMessage") &&
+                  room.lastMessage.content
                 }
                 type="room"
                 room={room}
-                img={`${
-                  process.env.REACT_APP_BASE_IMAGE_URL
-                }${room.avatarGroup.replaceAll(" ", "-")}`}
+                img={
+                  !!room.avatarGroup &&
+                  `${
+                    process.env.REACT_APP_BASE_IMAGE_URL
+                  }${room.avatarGroup.replaceAll(" ", "-")}`
+                }
               />
             ))}
-
-            {/* <div className="group-chat new-message">
-              <UserWithStatus size="50px" img="avatar.jpg" />
-              <div className="main-content">
-                <div className="title">Minh Xuân Lê</div>
-                <div className="last-message">Hellooooooooooooooo</div>
-              </div>
-            </div> */}
           </TabPane>
-          {/* <TabPane tab="Chưa đọc" key="2">
-            Content of Tab Pane 2
-          </TabPane> */}
         </Tabs>
       </MainWrapper>
     </div>

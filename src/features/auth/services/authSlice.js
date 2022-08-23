@@ -9,6 +9,7 @@ import {
   resetPassword,
 } from "./authThunk";
 import { toast } from "react-toastify";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 const authSlice = createSlice({
   name: "auth",
@@ -21,8 +22,13 @@ const authSlice = createSlice({
     // Check if user is using forgot password function to change the otp page's behavior
     isForgetPass: false,
     isForgetOtpConfirmed: false,
-
+    // Loading state
     isLoginSuccesful: false,
+    isCheckingLogin: false,
+    isResetPassword: false,
+    isConfirmOtp: false,
+    isChangingPassword: false,
+    isRegister: false,
   },
   reducers: {
     setInitValue: (state, action) => {
@@ -59,11 +65,13 @@ const authSlice = createSlice({
       .addCase(loginThunk.pending, (state, action) => {
         state.emailOrUsername = action.meta.arg.emailOrUsername;
         state.isEmailConfirmed = null;
+        state.isCheckingLogin = true;
       })
       .addCase(loginThunk.fulfilled, (state, action) => {
         state.token = action.payload.data.token;
         state.isEmailConfirmed = true;
         state.isLoginSuccesful = true;
+        state.isCheckingLogin = false;
         localStorage.setItem("token", action.payload.data.token);
       })
       .addCase(loginThunk.rejected, (state, action) => {
@@ -73,57 +81,77 @@ const authSlice = createSlice({
         // }
         state.isEmailConfirmed = action.payload.data.isEmailConfirmed;
         toast.error(action.payload.data.error);
+        state.isCheckingLogin = false;
       });
 
     builder
-      .addCase(registerThunk.pending, (state, action) => {})
+      .addCase(registerThunk.pending, (state, action) => {
+        state.isRegister = true;
+      })
       .addCase(registerThunk.fulfilled, (state, action) => {
+        state.isRegister = false;
         state.emailOrUsername = action.meta.arg.username;
         state.isEmailConfirmed = false;
       })
       .addCase(registerThunk.rejected, (state, action) => {
+        state.isRegister = false;
         toast.error(action.payload.data.error);
       });
 
     builder
-      .addCase(confirmEmailThunk.pending, (state, action) => {})
+      .addCase(confirmEmailThunk.pending, (state, action) => {
+        state.isConfirmOtp = true;
+      })
       .addCase(confirmEmailThunk.fulfilled, (state, action) => {
         state.isEmailConfirmed = true;
+        state.isConfirmOtp = false;
         state.token = action.payload.data.token;
         toast.success("Confirm email successfully ");
       })
       .addCase(confirmEmailThunk.rejected, (state, action) => {
+        state.isConfirmOtp = false;
         toast.error(action.payload.data.error);
       });
 
     builder
       .addCase(forgotPasswordThunk.pending, (state, action) => {
         state.emailOrUsername = action.meta.arg.emailOrUsername;
+        state.isResetPassword = true;
       })
       .addCase(forgotPasswordThunk.fulfilled, (state, action) => {
         state.isForgetPass = true;
+        state.isResetPassword = false;
       })
       .addCase(forgotPasswordThunk.rejected, (state, action) => {
         toast.error(action.payload.data.error);
+        state.isResetPassword = false;
       });
 
     builder
-      .addCase(confirmEmailPasswordThunk.pending, (state, action) => {})
+      .addCase(confirmEmailPasswordThunk.pending, (state, action) => {
+        state.isConfirmOtp = true;
+      })
       .addCase(confirmEmailPasswordThunk.fulfilled, (state, action) => {
         state.isForgetOtpConfirmed = true;
+        state.isConfirmOtp = false;
       })
       .addCase(confirmEmailPasswordThunk.rejected, (state, action) => {
+        state.isConfirmOtp = false;
         toast.error(action.payload.data.error);
       });
 
     builder
-      .addCase(resetPassword.pending, (state, action) => {})
+      .addCase(resetPassword.pending, (state, action) => {
+        state.isChangingPassword = true;
+      })
       .addCase(resetPassword.fulfilled, (state, action) => {
         state.isForgetPass = null;
         state.isForgetOtpConfirmed = null;
+        state.isChangingPassword = false;
         toast.success("Change password successfully");
       })
       .addCase(resetPassword.rejected, (state, action) => {
+        state.isChangingPassword = false;
         toast.error(action.payload.data.error);
       });
 
@@ -149,3 +177,9 @@ export const isForgetOtpConfirmedSelector = (state) =>
   state.auth.isForgetOtpConfirmed;
 export const usernameSelector = (state) => state.auth.username;
 export const isLoginSuccesfulSelector = (state) => state.auth.isLoginSuccesful;
+export const isCheckingLoginSelector = (state) => state.auth.isCheckingLogin;
+export const isResetPasswordSelector = (state) => state.auth.isResetPassword;
+export const isConfirmOtpSelector = (state) => state.auth.isConfirmOtp;
+export const isChangingPasswordSelector = (state) =>
+  state.auth.isChangingPassword;
+export const isRegisterSelector = (state) => state.auth.isRegister;

@@ -1,124 +1,124 @@
 .profile_photo {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    margin-bottom: 50px;
-    .background_photo {
-        img {
-            width: 360px;
-            height: 180px;
-            object-fit: cover;
-            margin: -24px;
-        }
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 50px;
+  .background_photo {
+    img {
+      width: 360px;
+      height: 180px;
+      object-fit: cover;
+      margin: -24px;
     }
-    .avatar_profile {
-        width: 96px;
-        height: 96px;
-        position: absolute;
-        margin: 12px auto;
-        left: 0;
-        right: 0;
-        bottom: -57px;
-        img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            box-shadow: 0 0 0 2px #fff;
-        }
+  }
+  .avatar_profile {
+    width: 96px;
+    height: 96px;
+    position: absolute;
+    margin: 12px auto;
+    left: 0;
+    right: 0;
+    bottom: -57px;
+    z-index: 1;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 0 2px #fff;
     }
+  }
 }
 
 .profile_name {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  margin-top: 12px;
+  span {
     width: 100%;
-    margin-top: 12px;
-    span {
-        width: 100%;
-        font-size: 20px;
-        font-weight: 400;
-        text-align: center;
-    }
-    .edit-btn {
-        position: absolute;
-        cursor: pointer;
-        font-size: 16px;
-        right: 18px;
-    }
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+  }
+  .edit-btn {
+    position: absolute;
+    cursor: pointer;
+    font-size: 16px;
+    right: 18px;
+  }
 }
 
 .profile_actions {
-    margin: 22px auto;
-    display: flex;
-    justify-content: center;
-    .msg-btn {
-        width: 126px;
-        height: 26px;
-        border-radius: 2px;
-        background-color: #fff;
-        color: #0068ff;
-        border: 1px solid #0068ff;
-        text-align: center;
-        cursor: pointer;
-        padding: 1px 0;
-    }
+  margin: 22px auto;
+  display: flex;
+  justify-content: center;
+  .msg-btn {
+    width: 126px;
+    height: 26px;
+    border-radius: 2px;
+    background-color: #fff;
+    color: #0068ff;
+    border: 1px solid #0068ff;
+    text-align: center;
+    cursor: pointer;
+    padding: 1px 0;
+  }
 
-    .msg-btn:hover {
-        background-color: #0068ff;
-        color: #fff;
-    }
+  .msg-btn:hover {
+    background-color: #0068ff;
+    color: #fff;
+  }
 }
 
 .profile_inf {
+  display: flex;
+  flex-direction: column;
+  // height: 205px;
+
+  .user-profile-details__line {
     display: flex;
-    flex-direction: column;
-    height: 205px;
+    margin-bottom: 14px;
+    padding-left: 20px;
+    color: #001a33;
+  }
 
-    .user-profile-details__line {
-        display: flex;
-        margin-bottom: 14px;
-        padding-left: 20px;
-        color: #001a33;
-    }
-
-    .user-profile-details__line>span:first-child {
-        color: #72808e;
-        width: 118px;
-        font-size: 15px;
-        display: inline-block;
-    }
+  .user-profile-details__line > span:first-child {
+    color: #72808e;
+    width: 118px;
+    font-size: 15px;
+    display: inline-block;
+  }
 }
 
-
 .profile_actions-footer {
+  display: flex;
+  flex-direction: row;
+  // border-top: 1px solid #ccc;
+  height: 65px;
+  width: 100%;
+
+  .actions_footer-btn {
     display: flex;
-    flex-direction: row;
-    // border-top: 1px solid #ccc;
-    height: 65px;
+    flex-direction: column;
+    // border-right: 1px solid #ccc;
+    text-align: center;
     width: 100%;
+    padding-top: 5px;
+    color: #72808e;
 
-    .actions_footer-btn {
-        display: flex;
-        flex-direction: column;
-        // border-right: 1px solid #ccc;
-        text-align: center;
-        width: 100%;
-        padding-top: 5px;
-        color: #72808e;
-
-        .actions_footer-icon {
-            font-size: 17px;
-        }
-
-        span {
-            font-size: 15px;
-        }
+    .actions_footer-icon {
+      font-size: 17px;
     }
 
-    .actions_footer-btn:hover {
-        color: #0068ff;
+    span {
+      font-size: 15px;
     }
+  }
+
+  .actions_footer-btn:hover {
+    color: #0068ff;
+  }
 }

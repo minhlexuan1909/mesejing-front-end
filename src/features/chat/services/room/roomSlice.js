@@ -16,6 +16,7 @@ const roomSlice = createSlice({
   name: "room",
   initialState: {
     rooms: [
+      1, 2, 3, 4, 5,
       // id: 1,
       // users: [],
       // name: "",
@@ -29,8 +30,13 @@ const roomSlice = createSlice({
     listUsersInRoom: [],
     roomDetail: null,
     selectedRoomAtFriendList: null,
+    // Loading state
+    isGettingRoom: false,
   },
   reducers: {
+    resetRoom: (state, action) => {
+      state.rooms = [1, 2, 3, 4, 5];
+    },
     setSelectedRoom: (state, action) => {
       state.selectedRoom = action.payload;
     },
@@ -71,12 +77,16 @@ const roomSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getRoomsThunk.pending, (state, action) => {})
-      .addCase(getRoomsThunk.fulfilled, (state, action) => {
-        state.rooms = action.payload.data.rooms;
-        state.lastMessage = "123";
+      .addCase(getRoomsThunk.pending, (state, action) => {
+        state.isGettingRoom = true;
       })
-      .addCase(getRoomsThunk.rejected, (state, action) => {});
+      .addCase(getRoomsThunk.fulfilled, (state, action) => {
+        state.isGettingRoom = false;
+        state.rooms = action.payload.data.rooms;
+      })
+      .addCase(getRoomsThunk.rejected, (state, action) => {
+        state.isGettingRoom = false;
+      });
 
     builder.addCase(createRoomThunk.fulfilled, (state, action) => {
       // state.rooms.unshift({ name: action.meta.arg.name });
@@ -116,13 +126,11 @@ const roomSlice = createSlice({
       });
     builder
       .addCase(leaveRoomThunk.pending, (state, action) => {})
-      .addCase(leaveRoomThunk.fulfilled, (state, action) => {
-      })
+      .addCase(leaveRoomThunk.fulfilled, (state, action) => {})
       .addCase(leaveRoomThunk.rejected, (state, action) => {});
     builder
       .addCase(addUsersThunk.pending, (state, action) => {})
-      .addCase(addUsersThunk.fulfilled, (state, action) => {
-      })
+      .addCase(addUsersThunk.fulfilled, (state, action) => {})
       .addCase(addUsersThunk.rejected, (state, action) => {});
     builder.addCase(updateLastSeenMessageThunk.fulfilled, (state, action) => {
       const room = state.rooms.find(
@@ -146,3 +154,4 @@ export const usersInRommSelector = (state) => state.room.listUsersInRoom;
 export const roomDetailSelector = (state) => state.room.roomDetail;
 export const selectedRoomAtFriendListSelector = (state) =>
   state.room.selectedRoomAtFriendList;
+export const isGettingRoomSelector = (state) => state.room.isGettingRoom;

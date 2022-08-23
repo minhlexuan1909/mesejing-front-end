@@ -39,9 +39,6 @@ import { selfProfileAction } from "../../../../profile/services/selfProfile/self
 const { TabPane } = Tabs;
 const { SubMenu } = Menu;
 const LeftNav = (props, ref) => {
-  const { defaultActiveTab } = props;
-  if (!defaultActiveTab) {
-  }
   const dispatch = useDispatch();
 
   const selectedRoom = useSelector(selectedRoomSelector);
@@ -59,6 +56,7 @@ const LeftNav = (props, ref) => {
     dispatch(authAction.removeUser());
     dispatch(authAction.removeLocalToken());
     dispatch(roomAction.removeAllRooms());
+    dispatch(roomAction.resetRoom());
     dispatch(roomAction.setSelectedRoom(null));
   };
   const aboutModal = (
@@ -78,10 +76,7 @@ const LeftNav = (props, ref) => {
         <div className="lower">
           <div className="text">
             Made with love by members of ProPTIT{" "}
-            <img
-              src={require("../../../../../assets/images/ProPTIT.png")}
-              alt="ProPTIT-logo"
-            ></img>
+            <img src="./assets/images/ProPTIT.png" alt="ProPTIT-logo"></img>
           </div>
         </div>
       </div>
@@ -96,9 +91,13 @@ const LeftNav = (props, ref) => {
           setIsAboutVisible(true);
         }}
       >
-        About mesejing
+        Thông tin
       </Menu.Item>
-      <Menu.Item key="2" icon={<FontAwesomeIcon icon={faMobileScreen} />}>
+      <Menu.Item
+        disabled={true}
+        key="2"
+        icon={<FontAwesomeIcon icon={faMobileScreen} />}
+      >
         Mesejing Mobile
       </Menu.Item>
       {/* <Menu.Divider />
@@ -169,7 +168,7 @@ const LeftNav = (props, ref) => {
             </Col>
           </div>
         </TabPane>
-        <TabPane
+        {/* <TabPane
           tab={<FontAwesomeIcon icon={faEarthAsia} className="nav-icon" />}
           key="3"
         >
@@ -177,7 +176,7 @@ const LeftNav = (props, ref) => {
             <OnlineList />
           </Col>
           <Col lg={18} md={16} sm={0} xs={0}></Col>
-        </TabPane>
+        </TabPane> */}
         <TabPane
           tab={
             <div>

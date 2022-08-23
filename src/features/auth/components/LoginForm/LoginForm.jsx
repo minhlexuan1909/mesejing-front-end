@@ -2,13 +2,19 @@ import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Form, Input } from "antd";
 import React from "react";
+import { CircularProgress } from "react-cssfx-loading/lib";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { isCheckingLoginSelector } from "../../services/authSlice";
 import { loginThunk } from "../../services/authThunk";
 
 import AuthForm from "../AuthForm/AuthForm";
 
 const LoginForm = ({ goTo }) => {
   const dispatch = useDispatch();
+
+  const isCheckingLogin = useSelector(isCheckingLoginSelector);
+
   const handleLogin = (values) => {
     dispatch(loginThunk(values));
   };
@@ -45,8 +51,9 @@ const LoginForm = ({ goTo }) => {
             htmlType="submit"
             style={{ width: "100%" }}
             size="large"
+            disabled={isCheckingLogin}
           >
-            Login
+            {isCheckingLogin ? <CircularProgress height="100%" /> : "Login"}
           </Button>
         </Form.Item>
       </AuthForm>

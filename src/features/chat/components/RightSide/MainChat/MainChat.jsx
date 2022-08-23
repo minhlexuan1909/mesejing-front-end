@@ -26,6 +26,7 @@ import {
   messageSelector,
   moreMessageSelector,
   hasMorePageSelector,
+  isGettingMessageSelector,
 } from "../../../services/message/messageSlice";
 import {
   sendMessageThunk,
@@ -42,6 +43,7 @@ import { getDetailRoomThunk } from "../../../services/room/roomThunk";
 import AddFriendToGroup from "../AddFriendToGroup/AddFriendToGroup";
 import axios from "axios";
 import Zoom from "react-medium-image-zoom";
+import Shimmer from "react-shimmer-effect";
 
 const MainChat = ({ place, setFriendProfileVisible }) => {
   const dispatch = useDispatch();
@@ -54,6 +56,7 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
   const roomDetail = useSelector(roomDetailSelector);
   const roomID = useSelector(selectedRoomSelector);
   const hasMorePage = useSelector(hasMorePageSelector);
+  const isGettingMessage = useSelector(isGettingMessageSelector);
 
   // STATE
   // const [roomID, setRoomID] = useState(null);
@@ -63,6 +66,8 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
   const [page, setPage] = useState(1); // PAGE LIST MESSAGES
   const [isAddToGroupVisible, setIsAddToGroupVisible] = useState(false);
   const [imgFile, setImgFile] = useState();
+  // Save current scroll postion
+  const [curScrollPos, setCurScollPos] = useState(null);
 
   //CONST
   const dataSendMessage = {
@@ -80,10 +85,19 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
   // AUTO SCROLL TO BOTTOM
   const scrollToBottom = () => {
     if (messageList.length !== 0 && messagesEndRef.current !== null) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+      // messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+      const container = foundContainerChatRef.current;
+      container.scrollTo(0, container.scrollHeight);
     }
   };
-  useEffect(scrollToBottom, [messageList]);
+  useEffect(() => {
+    scrollToBottom();
+  }, []);
+  useEffect(() => {
+    if (messageList.length <= 15 && !isGettingMessage) {
+      scrollToBottom();
+    }
+  }, [messageList, isGettingMessage]);
 
   // Turn off table Icons when clicking outside
   const useOutsideAlerter = (ref) => {
@@ -107,7 +121,7 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
   // HANDLE SCROOL AUTO LOAD MESSAGES
   const handleOnScroll = () => {
     const container = foundContainerChatRef.current;
-    // console.log(container.scrollTop, container.clientHeight, container.scrollHeight);
+
     if (container.scrollTop === 0 && hasMorePage) {
       setPage((page) => page + 1);
     }
@@ -173,7 +187,11 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
       // console.log("Eroor: ", err);
     }
   };
-
+  const handleFriendImageClick = () => {
+    dispatch(friendAction.setIsFriendProfileVisible(true));
+    const friend = roomDetail.users.find((user) => user.userId !== userID);
+    dispatch(userProfileAction.setSelectedUser(friend.userId));
+  };
   // USE EFFECT
 
   useEffect(() => {
@@ -193,6 +211,8 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
 
   useEffect(() => {
     // dispatch(messageAction.removeMessage())
+    const container = foundContainerChatRef.current;
+    setCurScollPos(container.scrollHeight - container.scrollTop);
     if (page > 1) {
       dispatch(
         getMessageRoomThunk({
@@ -204,6 +224,16 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
     }
   }, [page, dispatch, token]);
 
+  // Keep scroll position when loading more messages
+  useEffect(() => {
+    if (!isGettingMessage) {
+      const container = foundContainerChatRef.current;
+      if (curScrollPos !== null && container) {
+        container.scrollTo(0, container.scrollHeight - curScrollPos);
+      }
+    }
+  }, [messageList.length]);
+
   // Get message when room ID was changed
   useEffect(() => {
     dispatch(messageAction.removeMessage());
@@ -212,7 +242,8 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
       getMessageRoomThunk({
         token: token,
         roomID: dataSendMessage.roomId,
-        page: page,
+        // Set page is async func => May not take effect right away => Put 1 here
+        page: 1,
       })
     );
     dispatch(getDetailRoomThunk({ roomID: roomID, token }));
@@ -223,54 +254,80 @@ const MainChat = ({ place, setFriendProfileVisible }) => {
       <div className="mainChat__container">
         <div className="mainChat__wrapper">
           <div className="chatView__header">
-            <div className="chatView__header-user">
-              <div
-                className="user_img hvr-pulse-grow"
-                onClick={() => {
-                  dispatch(friendAction.setIsFriendProfileVisible(true));
-                  // Thay doan nay bang ID cua nguoi can show profile
-                  dispatch(userProfileAction.setSelectedUser(userID));
-                }}
-              >
-                <img
-                  src={
-                    roomDetail !== null &&
-                    roomDetail.hasOwnProperty("avatarGroup")
-                      ? `${
-                          process.env.REACT_APP_BASE_IMAGE_URL
-                        }${roomDetail.avatarGroup.replaceAll(" ", "-")}`
-                      : ""
-                  }
-                  alt="User"
-                ></img>
-              </div>
-              <div className="user_inf">
-                <div className="user_name">
-                  {roomDetail !== null && <h2>{roomDetail.name}</h2>}
+            <>
+              <div className="chatView__header-user">
+                {isGettingMessage ? (
+                  <Shimmer>
+                    <div
+                      style={{
+                        height: "48px",
+                        width: "48px",
+                        borderRadius: "50%",
+                      }}
+                    ></div>
+                  </Shimmer>
+                ) : (
+                  <div
+                    className="user_img hvr-pulse-grow"
+                    onClick={handleFriendImageClick}
+                  >
+                    <img
+                      src={
+                        roomDetail !== null &&
+                        roomDetail.hasOwnProperty("avatarGroup")
+                          ? `${
+                              process.env.REACT_APP_BASE_IMAGE_URL
+                            }${roomDetail.avatarGroup.replaceAll(" ", "-")}`
+                          : ""
+                      }
+                      alt="User"
+                    ></img>
+                  </div>
+                )}
 
-                  {(roomDetail !== null && roomDetail.isGroup) === true && (
-                    <p>{roomDetail.users.length} thành viên</p>
-                  )}
+                <div className="user_inf">
+                  <div className="user_name">
+                    {isGettingMessage ? (
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <Shimmer>
+                          <div
+                            style={{
+                              width: "150px",
+                              height: "20px",
+                              marginBottom: "7px",
+                            }}
+                          ></div>
+                          <div style={{ width: "100px", height: "10px" }}></div>
+                        </Shimmer>
+                      </div>
+                    ) : (
+                      <>
+                        {roomDetail !== null && <h2>{roomDetail.name}</h2>}
+
+                        {(roomDetail !== null && roomDetail.isGroup) ===
+                          true && <p>{roomDetail.users.length} thành viên</p>}
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="header-ListOptions">
-              {/* <div className="header-option">
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </div> */}
-              <div
-                className="header-option"
-                onClick={() => setIsAddToGroupVisible(true)}
-              >
-                <FontAwesomeIcon icon={faUserPlus} />
-              </div>
-              <div
-                className="header-option"
-                onClick={() => setIsShowDetail(!isShowDetail)}
-              >
-                <FontAwesomeIcon icon={faEllipsis} />
-              </div>
-            </div>
+              {!isGettingMessage && (
+                <div className="header-ListOptions">
+                  <div
+                    className="header-option"
+                    onClick={() => setIsAddToGroupVisible(true)}
+                  >
+                    <FontAwesomeIcon icon={faUserPlus} />
+                  </div>
+                  <div
+                    className="header-option"
+                    onClick={() => setIsShowDetail(!isShowDetail)}
+                  >
+                    <FontAwesomeIcon icon={faEllipsis} />
+                  </div>
+                </div>
+              )}
+            </>
           </div>
           <div
             className="chatView_body"

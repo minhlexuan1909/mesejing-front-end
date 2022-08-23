@@ -12,6 +12,8 @@ const userProfileSlice = createSlice({
     emailProfile: "default@gmail.com",
     avatarProfile: "default",
     coverProfile: "default",
+    // Loading state
+    isGettingUserProfile: false,
   },
   reducers: {
     setSelectedUser: (state, action) => {
@@ -22,15 +24,23 @@ const userProfileSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getUserByIdThunk.fulfilled, (state, action) => {
-      // state.username = action.payload.data.user.username;
-      state.firstNameProfile = action.payload.data.user.firstName;
-      state.lastNameProfile = action.payload.data.user.lastName;
-      state.avatarProfile = action.payload.data.user.avatar;
-      state.emailProfile = action.payload.data.user.email;
-      state.dateOfBirthProfile = action.payload.data.user.dob;
-      state.coverProfile = action.payload.data.user.cover;
-    });
+    builder
+      .addCase(getUserByIdThunk.pending, (state, action) => {
+        state.isGettingUserProfile = true;
+      })
+      .addCase(getUserByIdThunk.fulfilled, (state, action) => {
+        state.isGettingUserProfile = false;
+        // state.username = action.payload.data.user.username;
+        state.firstNameProfile = action.payload.data.user.firstName;
+        state.lastNameProfile = action.payload.data.user.lastName;
+        state.avatarProfile = action.payload.data.user.avatar;
+        state.emailProfile = action.payload.data.user.email;
+        state.dateOfBirthProfile = action.payload.data.user.dob;
+        state.coverProfile = action.payload.data.user.cover;
+      })
+      .addCase(getUserByIdThunk.rejected, (state, action) => {
+        state.isGettingUserProfile = false;
+      });
   },
 });
 
@@ -50,3 +60,5 @@ export const dateOfBirthProfileSelector = (state) =>
   state.userProfile.dateOfBirthProfile;
 export const avatarProfileSelector = (state) => state.userProfile.avatarProfile;
 export const coverProfileSelector = (state) => state.userProfile.coverProfile;
+export const isGettingUserProfileSelector = (state) =>
+  state.userProfile.isGettingUserProfile;

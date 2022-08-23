@@ -10,12 +10,14 @@ import RegisterForm from "../../components/RegisterForm/RegisterForm";
 import { useDispatch, useSelector } from "react-redux";
 import {
   authAction,
+  isCheckingLoginSelector,
   isEmailConfirmedSelector,
   isLoginSuccesfulSelector,
   tokenSelector,
 } from "../../services/authSlice";
 import { useNavigate } from "react-router-dom";
 import { getMeThunk } from "../../services/authThunk";
+import { CircularProgress } from "react-cssfx-loading/lib";
 
 const { TabPane } = Tabs;
 const AuthPage = ({ type }) => {

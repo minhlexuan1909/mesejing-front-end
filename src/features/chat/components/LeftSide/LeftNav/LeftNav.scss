@@ -2,9 +2,15 @@
 .left-nav {
   height: 100vh;
   width: 100vw;
+  .ant-tabs-nav-more,
+  .ant-tabs > .ant-tabs-nav .ant-tabs-nav-operations {
+    display: none;
+  }
   & > .ant-tabs {
     & > .ant-tabs-nav {
+      display: block;
       & > .ant-tabs-nav-wrap {
+        height: 100%;
         & > .ant-tabs-nav-list {
           & > .ant-tabs-tab-active {
             background-color: #0067f1;

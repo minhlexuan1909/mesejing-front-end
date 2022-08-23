@@ -121,7 +121,7 @@ const AddFriendToGroup = ({ isAddToGroupVisible, setIsAddToGroupVisible }) => {
         setIsAddToGroupVisible(false);
         setListSelectedFriend([]);
       }}
-      title="Thêm bạn bè vào nhóm trò chuyện"
+      title="Thêm bạn vào cuộc trò chuyện"
       width="700px"
     >
       <Form onFinish={onFinishCreateGroup}>

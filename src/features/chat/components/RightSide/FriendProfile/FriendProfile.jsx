@@ -14,8 +14,10 @@ import {
   dateOfBirthProfileSelector,
   emailProfileSelector,
   firstNameProfileSelector,
+  isGettingUserProfileSelector,
   isShowOwnProfileSelector,
   lastNameProfileSelector,
+  selectedUserProfileSelector,
   selectedUserSelector,
 } from "../../../../profile/services/userProfile/userProfileSlice";
 import {
@@ -23,6 +25,7 @@ import {
   userIdSelector,
 } from "../../../../auth/services/authSlice";
 import { getUserByIdThunk } from "../../../../profile/services/userProfile/userProfileThunk";
+import Shimmer from "react-shimmer-effect";
 
 function FriendProfile({}) {
   const dispatch = useDispatch();
@@ -35,12 +38,14 @@ function FriendProfile({}) {
   const avatarProfile = useSelector(avatarProfileSelector);
   const coverProfile = useSelector(coverProfileSelector);
   const token = useSelector(tokenSelector);
+  const selectedUser = useSelector(selectedUserProfileSelector);
+
+  const isGettingUserProfile = useSelector(isGettingUserProfileSelector);
   // Tam lay userId cua minh de test, phan nay can duoc thay bang id cua profile can lay
   const userId = useSelector(userIdSelector);
-  // useEffect(() => {
-  //   dispatch(getUserByIdThunk({ token, userId }));
-  // }, [userId, token, dispatch]);
-  //
+  useEffect(() => {
+    dispatch(getUserByIdThunk({ token, selectedUser }));
+  }, [selectedUser, token, dispatch]);
 
   return (
     <div className="modalFriendProfile">
@@ -53,32 +58,27 @@ function FriendProfile({}) {
         width={360}
         height={600}
         footer={[
-        
           <div className="profile_actions-footer">
-            {/* <div className="actions_footer-btn">
-            <div className="actions_footer-icon">
-                <FontAwesomeIcon icon={faAddressCard} />
-            </div>
-            <span>Chia sẻ</span>
-        </div> */}
             <div className="actions_footer-btn">
               <div className="actions_footer-icon">
-                <FontAwesomeIcon icon={faTrashCan} />
+                {isGettingUserProfile ? (
+                  <Shimmer>
+                    <div style={{ height: "20px", width: "20px" }}></div>
+                  </Shimmer>
+                ) : (
+                  <FontAwesomeIcon icon={faTrashCan} />
+                )}
               </div>
-              <span>Xoá</span>
+              <span>
+                {isGettingUserProfile ? (
+                  <Shimmer>
+                    <div style={{ height: "10px", width: "30px" }}></div>
+                  </Shimmer>
+                ) : (
+                  "Xoá"
+                )}
+              </span>
             </div>
-            {/* <div className="actions_footer-btn">
-            <div className="actions_footer-icon">
-                <FontAwesomeIcon icon={faLock} />
-            </div>
-            <span>Chặn</span>
-        </div>
-        <div className="actions_footer-btn">
-            <div className="actions_footer-icon">
-                <FontAwesomeIcon icon={faTriangleExclamation} />
-            </div>
-            <span>Báo cáo</span>
-        </div> */}
           </div>,
         ]}
       >
@@ -97,10 +97,18 @@ function FriendProfile({}) {
           </div>
         </div>
         <div className="profile_name">
-          <span>{firstNameProfile + " " + lastNameProfile}</span>
-          <div className="edit-btn">
+          <span>
+            {isGettingUserProfile ? (
+              <Shimmer>
+                <div style={{ height: "20px", width: "140px" }}></div>
+              </Shimmer>
+            ) : (
+              <>{firstNameProfile + " " + lastNameProfile}</>
+            )}
+          </span>
+          {/* <div className="edit-btn">
             <FontAwesomeIcon icon={faPenToSquare} />
-          </div>
+          </div> */}
         </div>
         <div className="profile_actions">
           <div className="msg-btn">
@@ -112,17 +120,49 @@ function FriendProfile({}) {
               <span>Nhóm chung</span>
               <span>2 nhóm chung</span>
           </div> */}
-          <div className="user-profile-details__line">
+          {/* <div className="user-profile-details__line">
             <span>Điện thoại</span>
             <span>0976466331</span>
+          </div> */}
+          <div className="user-profile-details__line">
+            <span>
+              {isGettingUserProfile ? (
+                <Shimmer>
+                  <div style={{ height: "17px", width: "40px" }}></div>
+                </Shimmer>
+              ) : (
+                "Email"
+              )}
+            </span>
+            <span>
+              {isGettingUserProfile ? (
+                <Shimmer>
+                  <div style={{ height: "17px", width: "110px" }}></div>
+                </Shimmer>
+              ) : (
+                <>{emailProfile}</>
+              )}
+            </span>
           </div>
           <div className="user-profile-details__line">
-            <span>Giới tính</span>
-            <span>Nam</span>
-          </div>
-          <div className="user-profile-details__line">
-            <span>Ngày sinh</span>
-            <span>{dateOfBirthProfile}</span>
+            <span>
+              {isGettingUserProfile ? (
+                <Shimmer>
+                  <div style={{ height: "17px", width: "90px" }}></div>
+                </Shimmer>
+              ) : (
+                "Ngày sinh"
+              )}
+            </span>
+            <span>
+              {isGettingUserProfile ? (
+                <Shimmer>
+                  <div style={{ height: "17px", width: "80px" }}></div>
+                </Shimmer>
+              ) : (
+                <>{dateOfBirthProfile}</>
+              )}
+            </span>
           </div>
         </div>
       </Modal>

@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/mesejing-front-end/static/css/main.5edddb29.css",
-    "main.js": "/mesejing-front-end/static/js/main.519428f7.js",
+    "main.js": "/mesejing-front-end/static/js/main.203ca4b4.js",
     "static/js/787.22edae46.chunk.js": "/mesejing-front-end/static/js/787.22edae46.chunk.js",
     "static/media/authCover.png": "/mesejing-front-end/static/media/authCover.bcbcdba62a05d9ea8f44.png",
     "index.html": "/mesejing-front-end/index.html",
     "main.5edddb29.css.map": "/mesejing-front-end/static/css/main.5edddb29.css.map",
-    "main.519428f7.js.map": "/mesejing-front-end/static/js/main.519428f7.js.map",
+    "main.203ca4b4.js.map": "/mesejing-front-end/static/js/main.203ca4b4.js.map",
     "787.22edae46.chunk.js.map": "/mesejing-front-end/static/js/787.22edae46.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5edddb29.css",
-    "static/js/main.519428f7.js"
+    "static/js/main.203ca4b4.js"
   ]
 }

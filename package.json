@@ -1,7 +1,8 @@
 {
   "name": "front-end",
+  "homepage": "https://minhlexuan1909.github.io/mesejing-front-end/",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "engines": {
     "node": "16.17.0",
     "npm": "8.10.0"
@@ -21,6 +22,7 @@
     "axios": "^0.26.1",
     "dotenv": "^16.0.0",
     "emoji-picker-react": "^3.5.1",
+    "gh-pages": "^4.0.0",
     "moment": "^2.29.3",
     "mqtt": "^4.3.7",
     "query-string": "^7.1.1",
@@ -45,7 +47,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [

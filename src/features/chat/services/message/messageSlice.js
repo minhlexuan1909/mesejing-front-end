@@ -13,6 +13,7 @@ const messageSlice = createSlice({
     hasMorePage: true,
     // Loading state
     isGettingMessage: false,
+    isSendingMessage: false,
   },
   reducers: {
     setMessage: (state, action) => {
@@ -27,9 +28,15 @@ const messageSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(sendMessageThunk.pending, (state, action) => {})
-      .addCase(sendMessageThunk.fulfilled, (state, action) => {})
-      .addCase(sendMessageThunk.rejected, (state, action) => {});
+      .addCase(sendMessageThunk.pending, (state, action) => {
+        state.isSendingMessage = true;
+      })
+      .addCase(sendMessageThunk.fulfilled, (state, action) => {
+        state.isSendingMessage = false;
+      })
+      .addCase(sendMessageThunk.rejected, (state, action) => {
+        state.isSendingMessage = false;
+      });
 
     builder
       .addCase(getMessageRoomThunk.pending, (state, action) => {
@@ -81,3 +88,5 @@ export const hasMorePageSelector = (state) => state.message.hasMorePage;
 // export const selectedRoomSelector = (state) => state.room.selectedRoom;
 export const isGettingMessageSelector = (state) =>
   state.message.isGettingMessage;
+export const isSendingMessageSelector = (state) =>
+  state.message.isSendingMessage;

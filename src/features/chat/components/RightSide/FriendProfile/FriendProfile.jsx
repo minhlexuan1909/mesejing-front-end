@@ -48,15 +48,19 @@ function FriendProfile({}) {
   }, [selectedUser, token, dispatch]);
 
   return (
-    <div className="modalFriendProfile">
+    <div>
       <Modal
+        wrapClassName="modalFriendProfile"
         visible={isFriendProfileVisible}
         title="Thông tin"
         centered
         // onCancel={() => setFriendProfileVisible(false)}
         onCancel={() => dispatch(friendAction.setIsFriendProfileVisible(false))}
-        width={360}
+        width={320}
         height={600}
+        bodyStyle={{
+          padding: "0",
+        }}
         footer={[
           <div className="profile_actions-footer">
             <div className="actions_footer-btn">
@@ -84,16 +88,40 @@ function FriendProfile({}) {
       >
         <div className="profile_photo">
           <div className="background_photo">
-            <img
-              src={`${process.env.REACT_APP_BASE_IMAGE_URL}${coverProfile}`}
-              alt="background"
-            ></img>
+            {isGettingUserProfile ? (
+              <Shimmer>
+                <div
+                  style={{
+                    height: "180px",
+                    width: "320px",
+                    maxWidth: "calc(100vw - 17px)",
+                  }}
+                ></div>
+              </Shimmer>
+            ) : (
+              <img
+                src={`${process.env.REACT_APP_BASE_IMAGE_URL}${coverProfile}`}
+                alt="background"
+              ></img>
+            )}
           </div>
           <div className="avatar_profile">
-            <img
-              src={`${process.env.REACT_APP_BASE_IMAGE_URL}${avatarProfile}`}
-              alt="avatar"
-            ></img>
+            {isGettingUserProfile ? (
+              <Shimmer>
+                <div
+                  style={{
+                    height: "96px",
+                    width: "96px",
+                    borderRadius: "50%",
+                  }}
+                ></div>
+              </Shimmer>
+            ) : (
+              <img
+                src={`${process.env.REACT_APP_BASE_IMAGE_URL}${avatarProfile}`}
+                alt="avatar"
+              ></img>
+            )}
           </div>
         </div>
         <div className="profile_name">

@@ -76,7 +76,10 @@ const LeftNav = (props, ref) => {
         <div className="lower">
           <div className="text">
             Made with love by members of ProPTIT{" "}
-            <img src="./assets/images/ProPTIT.png" alt="ProPTIT-logo"></img>
+            <img
+              src={require("../../../../../assets/ProPTIT.png")}
+              alt="ProPTIT-logo"
+            ></img>
           </div>
         </div>
       </div>
@@ -91,7 +94,7 @@ const LeftNav = (props, ref) => {
           setIsAboutVisible(true);
         }}
       >
-        Thông tin
+        About
       </Menu.Item>
       <Menu.Item
         disabled={true}
@@ -160,10 +163,20 @@ const LeftNav = (props, ref) => {
           key="2"
         >
           <div style={{ width: "100%", display: "flex" }}>
-            <Col lg={6} md={8} sm={24} xs={24}>
+            <Col
+              lg={6}
+              md={8}
+              sm={selectedRoom ? 0 : 24}
+              xs={selectedRoom ? 0 : 24}
+            >
               <MainChatList />
             </Col>
-            <Col lg={18} md={16} sm={0} xs={0}>
+            <Col
+              lg={18}
+              md={16}
+              sm={selectedRoom ? 24 : 0}
+              xs={selectedRoom ? 24 : 0}
+            >
               {selectedRoom && activeKey === "2" ? <MainChat /> : <Opening />}
             </Col>
           </div>

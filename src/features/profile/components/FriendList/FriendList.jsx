@@ -11,6 +11,8 @@ import {
 } from "../../services/friend/friendSlice.js";
 import { roomAction } from "../../../chat/services/room/roomSlice";
 
+import addFriendIcon from "../../../../assets/add-friend-icon.jpg";
+
 const { SubMenu } = Menu;
 
 const FriendList = () => {
@@ -31,8 +33,8 @@ const MainWrapperChild = ({ set_visible_add }) => {
   return (
     <>
       <LeftNavItem
-        title="Danh sách kểt bạn"
-        img={"./assets/images/add-friend-icon.jpg"}
+        title="Friend requests"
+        img={addFriendIcon}
         onClick={() => dispatch(roomAction.setSelectedRoom(null))}
       />
       <Menu
@@ -40,7 +42,7 @@ const MainWrapperChild = ({ set_visible_add }) => {
         defaultOpenKeys={["sub1"]}
         mode="inline"
       >
-        <SubMenu key="sub1" title={`Bạn bè (${listFriended.length})`}>
+        <SubMenu key="sub1" title={`Friends (${listFriended.length})`}>
           {listFriended.map((friend, index) => (
             <LeftNavItem
               key={friend._id}

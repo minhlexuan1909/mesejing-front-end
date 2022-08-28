@@ -117,7 +117,7 @@ const MinhChatPage = () => {
   useEffect(() => {
     rooms.forEach((room) => mqttSubscribe(`ROOM/${room._id}`, 0));
     // rooms.forEach((room) => mqttSubscribe(`ROOM/${room._id}`, 0));
-  }, [rooms, client]);
+  }, [rooms.length, client]);
   useEffect(() => {
     mqttSubscribe(`USER/${userId}`, 0);
   }, [userId, client]);

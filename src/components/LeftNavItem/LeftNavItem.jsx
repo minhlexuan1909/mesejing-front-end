@@ -41,13 +41,15 @@ const LeftNavItem = ({
       visible={isRemoveFriendVisible}
       centered
       onCancel={() => setIsRemoveFriendVisible(false)}
-      title="Xác nhận"
+      title="Confirm"
       bodyStyle={{ fontSize: "15px" }}
-      okText="Xác nhận"
-      cancelText="Hủy"
+      okText="Remove"
+      cancelText="Camcel"
       onOk={handleConfirmRemoveFriend}
     >
-      Bạn muốn xóa Anna ra khỏi danh sách bạn bè?
+      Do you want to remove{" "}
+      {type === "friend" && friend.firstName + " " + friend.lastName} from the
+      friend list?
     </Modal>
   );
   const menuFriend = (

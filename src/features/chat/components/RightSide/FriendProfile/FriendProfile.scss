@@ -1,35 +1,3 @@
-.profile_photo {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  margin-bottom: 50px;
-  .background_photo {
-    img {
-      width: 360px;
-      height: 180px;
-      object-fit: cover;
-      margin: -24px;
-    }
-  }
-  .avatar_profile {
-    width: 96px;
-    height: 96px;
-    position: absolute;
-    margin: 12px auto;
-    left: 0;
-    right: 0;
-    bottom: -57px;
-    z-index: 1;
-    img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 0 0 2px #fff;
-    }
-  }
-}
-
 .profile_name {
   display: flex;
   flex-direction: row;
@@ -120,5 +88,11 @@
 
   .actions_footer-btn:hover {
     color: #0068ff;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .profile_inf .user-profile-details__line > span:first-child {
+    width: 100px;
   }
 }

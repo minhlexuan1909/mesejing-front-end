@@ -68,7 +68,7 @@ const roomSlice = createSlice({
       const roomID = action.payload.roomID;
       const lastMessage = action.payload.lastMessage;
       const isSeen = action.payload.isSeen;
-      const room = state.rooms.find((room) => room._id === roomID);
+      const room = state.rooms.find((room) => room._id && room._id === roomID);
       if (room && room.hasOwnProperty("lastMessage")) {
         room.lastMessage.content = lastMessage;
         room.lastMessage.isSeen = isSeen;

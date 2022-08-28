@@ -21,10 +21,11 @@
     position: relative;
     display: flex;
     width: 100%;
-    max-height: 100%;
+    height: 100%;
     flex-direction: column;
     .chatView__header {
       display: flex;
+      align-items: center;
       flex-direction: row;
       justify-content: space-between;
       min-height: 68px;
@@ -33,7 +34,19 @@
       background-color: white;
       padding: 0 16px;
       border: 1px solid #ccc;
-
+      .chatView__back-btn {
+        display: none;
+        height: 35px;
+        width: 35px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        margin-right: 5px;
+        animation: all 0.2s;
+      }
+      .chatView__back-btn:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
       .chatView__header-user {
         display: flex;
         flex-direction: row;
@@ -85,7 +98,10 @@
       border-left: 1px solid #ccc;
       border-right: 1px solid #ccc;
       padding: 32px 16px;
-
+      .chatView__last-message {
+        position: absolute;
+        opacity: 0;
+      }
       .system-call {
         display: flex;
         width: 85%;
@@ -122,8 +138,8 @@
         justify-content: flex-end;
         gap: 16px;
         margin-top: 6px;
-        width: 80%;
-        float: right;
+        // width: 80%;
+        // float: right;
 
         .user_name {
           position: absolute;
@@ -166,7 +182,7 @@
         }
       }
       .another_user {
-        float: left;
+        // float: left;
         justify-content: flex-start;
         .user_name {
           top: -22px;
@@ -248,4 +264,16 @@
   animation-iteration-count: infinite;
   -webkit-animation-direction: alternate;
   animation-direction: alternate;
+}
+
+@media screen and (max-width: 768px) {
+  .hide-chat {
+    display: none;
+  }
+  .show-chat {
+    display: block;
+  }
+  .chatView__back-btn {
+    display: flex !important;
+  }
 }

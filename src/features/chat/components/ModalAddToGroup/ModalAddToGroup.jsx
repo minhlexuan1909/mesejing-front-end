@@ -167,7 +167,7 @@ const ModalAddToGroup = ({ isAddToGroupVisible, setIsAddToGroupVisible }) => {
         setIsAddToGroupVisible(false);
         setListSelectedFriend([]);
       }}
-      title="Tạo nhóm"
+      title="Create group"
       width="700px"
     >
       <Form onFinish={onFinishCreateGroup}>
@@ -235,14 +235,14 @@ const ModalAddToGroup = ({ isAddToGroupVisible, setIsAddToGroupVisible }) => {
                 setIsAddToGroupVisible(false);
               }}
             >
-              Hủy
+              Cancel
             </Button>
             <Button
               type="primary"
               htmlType="submit"
               style={{ marginLeft: "8px" }}
             >
-              Tạo nhóm
+              Create
             </Button>
           </div>
         </Form.Item>

@@ -15,7 +15,7 @@ import {
   userNameProfileSelector,
   selfProfileAction,
   userProfileAction,
-  backGroundImgSelector
+  backGroundImgSelector,
 } from "../../services/selfProfile/selfProfileSlice";
 import {
   tokenSelector,
@@ -24,7 +24,6 @@ import {
 import { updateMyProfileThunk } from "../../services/selfProfile/selfProfileThunk";
 import moment from "moment";
 import axios from "axios";
-
 
 function ModalMyProfile(props) {
   const dispatch = useDispatch();
@@ -43,25 +42,38 @@ function ModalMyProfile(props) {
 
   //STATE
 
-  const [dob, setDob] = useState('');
-  const [nameUser, setNameUser] = useState('')
-  const [avatarImg, setAvatarImg] = useState(`${process.env.REACT_APP_BASE_IMAGE_URL}${avatarProfie}`.replaceAll(" ", "-"));
-  const [backgroundImg, setBackGroundImg] = useState(`${process.env.REACT_APP_BASE_IMAGE_URL}${backgroundProfile}`.replaceAll(" ", "-"))
+  const [dob, setDob] = useState("");
+  const [nameUser, setNameUser] = useState("");
+  const [avatarImg, setAvatarImg] = useState(
+    `${process.env.REACT_APP_BASE_IMAGE_URL}${avatarProfie}`.replaceAll(
+      " ",
+      "-"
+    )
+  );
+  const [backgroundImg, setBackGroundImg] = useState(
+    `${process.env.REACT_APP_BASE_IMAGE_URL}${backgroundProfile}`.replaceAll(
+      " ",
+      "-"
+    )
+  );
   const [listFile, setListFile] = useState(["default", "default"]);
 
   useEffect(() => {
     setDob(dateOfBirthProfile);
     setNameUser(`${firstNameProfile} ${lastNameProfile}`);
-  }, [isShowOwnProfile])
+  }, [isShowOwnProfile]);
 
   const handleUpdateProfile = async () => {
-    let firstName = nameUser.trim().split(' ')[0];
-    let lastName = ''; 
-    nameUser.trim().split(' ').forEach((item, index) => {
-      if (index > 0) {
-        lastName += item + " ";
-      }
-    })
+    let firstName = nameUser.trim().split(" ")[0];
+    let lastName = "";
+    nameUser
+      .trim()
+      .split(" ")
+      .forEach((item, index) => {
+        if (index > 0) {
+          lastName += item + " ";
+        }
+      });
     // console.log(uploadImage(listFile[0]));
     // console.log(uploadImage(listFile[1]));
     // console.log(listFile);
@@ -78,37 +90,45 @@ function ModalMyProfile(props) {
     //   "cover":"path cover"
     // }
     console.log(upLoadImg1, upLoadImg2);
-    dispatch(updateMyProfileThunk({token, username: userNameProfile, firstName: 
-      firstName,lastName: lastName, avatar: upLoadImg1, cover: upLoadImg2}));
-  }
+    dispatch(
+      updateMyProfileThunk({
+        token,
+        username: userNameProfile,
+        firstName: firstName,
+        lastName: lastName,
+        avatar: upLoadImg1,
+        cover: upLoadImg2,
+      })
+    );
+  };
 
   const handleUpdateAvatar = (e) => {
     const reader = new FileReader();
     reader.onload = () => {
-        if (reader.readyState === 2) {
-          setAvatarImg(reader.result);
-        }
-    }
+      if (reader.readyState === 2) {
+        setAvatarImg(reader.result);
+      }
+    };
     reader.readAsDataURL(e.target.files[0]);
     let tmp = listFile;
     tmp[0] = e.target.files[0];
     setListFile(tmp);
     // console.log(uploadImage(e.target.files[0]));
-  }
+  };
 
   const handleUpdateBackGround = (e) => {
     const reader = new FileReader();
     reader.onload = () => {
-        if (reader.readyState === 2) {
-          setBackGroundImg(reader.result);
-        }
-    }
+      if (reader.readyState === 2) {
+        setBackGroundImg(reader.result);
+      }
+    };
     reader.readAsDataURL(e.target.files[0]);
     let tmp = listFile;
     tmp[1] = e.target.files[0];
     setListFile(tmp);
     // console.log(uploadImage(e.target.files[0]));
-  }
+  };
 
   const uploadImage = async (fileImg) => {
     let data = new FormData();
@@ -133,24 +153,41 @@ function ModalMyProfile(props) {
   };
 
   useEffect(() => {
-    setAvatarImg(`${process.env.REACT_APP_BASE_IMAGE_URL}${avatarProfie}`.replaceAll(" ", "-"));
-    setBackGroundImg(`${process.env.REACT_APP_BASE_IMAGE_URL}${backgroundProfile}`.replaceAll(" ", "-"));
-  }, [token, dispatch, isShowOwnProfile])
-
-  
-
+    setAvatarImg(
+      `${process.env.REACT_APP_BASE_IMAGE_URL}${avatarProfie}`.replaceAll(
+        " ",
+        "-"
+      )
+    );
+    setBackGroundImg(
+      `${process.env.REACT_APP_BASE_IMAGE_URL}${backgroundProfile}`.replaceAll(
+        " ",
+        "-"
+      )
+    );
+  }, [token, dispatch, isShowOwnProfile]);
 
   return (
     <div className="modalMyProfile">
       <Modal
         visible={isShowOwnProfile}
-        title="Thông tin"
+        title="Informations"
         centered
-        width={360}
+        width={320}
+        bodyStyle={{ padding: "0px" }}
         footer={[
           <div className="myProfile-btn">
-            <div className="btn-reject" onClick={() => dispatch(selfProfileAction.setIsShowOwnProfile(false))}>Huỷ</div>
-            <div className="btn-accept" onClick={handleUpdateProfile}>Cập nhật</div>
+            <div
+              className="btn-reject"
+              onClick={() =>
+                dispatch(selfProfileAction.setIsShowOwnProfile(false))
+              }
+            >
+              Huỷ
+            </div>
+            <div className="btn-accept" onClick={handleUpdateProfile}>
+              Cập nhật
+            </div>
           </div>,
         ]}
         onCancel={() => dispatch(selfProfileAction.setIsShowOwnProfile(false))}
@@ -175,10 +212,7 @@ function ModalMyProfile(props) {
             />
           </label>
           <label className="avatar_profile" htmlFor="avaUpdateMyProfile">
-            <img
-              src={avatarImg}
-              alt="avatar"
-            ></img>
+            <img src={avatarImg} alt="avatar"></img>
             <div className="camera-icons">
               <FontAwesomeIcon icon={faCamera} />
             </div>
@@ -198,21 +232,28 @@ function ModalMyProfile(props) {
             <Input value="Le Thanh Binh" disabled />
           </div> */}
           <div className="inf-item">
-            <span>Tên hiển thị</span>
-            <Input value={nameUser} onChange={(e) => {setNameUser(e.target.value)}}/>
+            <span>Display name</span>
+            <Input
+              value={nameUser}
+              onChange={(e) => {
+                setNameUser(e.target.value);
+              }}
+            />
           </div>
           <div className="inf-item">
             <span>Email</span>
             <Input type="email" value={emailProfile} disabled />
           </div>
           <div className="inf-item">
-            <span>Ngày sinh</span>
+            <span>Date of birth</span>
             <DatePicker
               allowClear={false}
               value={moment(dob, ["DD-MM-YYYY", "YYYY-MM-DD"])}
               format="DD-MM-YYYY"
               style={{ cursor: "pointer" }}
-              onChange={(date) => {setDob(date)}}
+              onChange={(date) => {
+                setDob(date);
+              }}
             />
           </div>
         </div>

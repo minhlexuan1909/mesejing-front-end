@@ -38,11 +38,11 @@ const ListAddFriend = () => {
           alt="addFriend"
           className="icons-addFriend"
         />
-        <span>Danh sách kết bạn</span>
+        <span>Friend Requests</span>
       </div>
       <div className="listAddFriend">
         <div className="title">
-          <span>Lời mời kết bạn ({listFriendInvite.length})</span>
+          <span>Friend Requests ({listFriendInvite.length})</span>
         </div>
         {listFriendInvite.map((item) => {
           if (item.request === false)

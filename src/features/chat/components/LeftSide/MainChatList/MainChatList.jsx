@@ -9,6 +9,7 @@ import {
   isGettingRoomSelector,
   roomAction,
   roomsSelector,
+  selectedRoomSelector,
 } from "../../../services/room/roomSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
@@ -18,6 +19,7 @@ const { TabPane } = Tabs;
 const MainChatList = () => {
   const rooms = useSelector(roomsSelector);
   const isGettingRoom = useSelector(isGettingRoomSelector);
+  const selectedRoom = useSelector(selectedRoomSelector);
 
   const dispatch = useDispatch();
 
@@ -27,20 +29,24 @@ const MainChatList = () => {
         <div className="main-chat-list__error">
           <FontAwesomeIcon icon={faCircleExclamation} size="3x" />
           <span className="main-chat-list__error-text">
-            Loading failed. Please reload this page
+            Tải dữ liệu lỗi. Vui lòng tải lại trang
           </span>
         </div>
       </MainWrapper>
     );
   }
   return (
-    <div className="left-main-chat-list">
+    <div
+      className={`left-main-chat-list ${
+        selectedRoom ? "hide-chat-list" : "show-chat-list"
+      }`}
+    >
       <MainWrapper>
         <Tabs
           defaultActiveKey="1"
           tabBarStyle={{ marginLeft: "15px", marginBottom: "0px" }}
         >
-          <TabPane tab="Tất cả" key="1">
+          <TabPane tab="All" key="1">
             {rooms.map((room, index) => (
               <LeftNavItem
                 key={index}

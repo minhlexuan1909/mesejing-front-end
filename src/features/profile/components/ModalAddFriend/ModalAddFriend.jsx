@@ -85,7 +85,7 @@ const ModalConfirm = ({
       onCancel={() => {
         setIsConfirmModalVisible(false);
       }}
-      title="Thêm bạn"
+      title="Add friend"
     >
       Bạn muốn kết bạn với {name}
     </Modal>
@@ -152,17 +152,17 @@ const ModalAddFriend = ({
           htmlType="submit"
           key="submit"
         >
-          Tìm bạn
+          Find
         </Button>,
       ]}
       centered
       onCancel={handleCancelModal}
-      title="Thêm bạn"
+      title="Add friend"
       // bodyStyle={{ height: "500px" }}
     >
       <Form id="add-friend-form" onFinish={handleFindFriend}>
         <Form.Item name="keyword">
-          <Input placeholder="Nhập từ khóa theo tên" />
+          <Input placeholder="Type name" />
         </Form.Item>
         {!!listFriendFound.length && (
           <Form.Item style={{ display: "flex" }}>

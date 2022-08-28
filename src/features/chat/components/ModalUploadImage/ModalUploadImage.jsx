@@ -111,7 +111,7 @@ const ModalUploadImage = ({
         centered
         onOk={handleUploadOnOk}
         onCancel={handleUploadOnCancel}
-        title="Upload ảnh"
+        title="Upload image"
         bodyStyle={{ width: "300px", height: "300px" }}
         style={{ width: "fit-content" }}
         width

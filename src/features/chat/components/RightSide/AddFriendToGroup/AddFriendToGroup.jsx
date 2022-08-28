@@ -121,7 +121,7 @@ const AddFriendToGroup = ({ isAddToGroupVisible, setIsAddToGroupVisible }) => {
         setIsAddToGroupVisible(false);
         setListSelectedFriend([]);
       }}
-      title="Thêm bạn vào cuộc trò chuyện"
+      title="Add friend to the conversation"
       width="700px"
     >
       <Form onFinish={onFinishCreateGroup}>
@@ -167,14 +167,14 @@ const AddFriendToGroup = ({ isAddToGroupVisible, setIsAddToGroupVisible }) => {
                 setIsAddToGroupVisible(false);
               }}
             >
-              Hủy
+              Cancel
             </Button>
             <Button
               type="primary"
               htmlType="submit"
               style={{ marginLeft: "8px" }}
             >
-              Thêm vào nhóm
+              Add
             </Button>
           </div>
         </Form.Item>

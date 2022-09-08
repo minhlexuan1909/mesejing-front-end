@@ -1,6 +1,7 @@
 import React, { forwardRef, useEffect, useState } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { mqttPayloadSelector } from "../../../../../../services/mqtt/mqttSlice";
 import {
   tokenSelector,
@@ -21,6 +22,8 @@ import UserMessage from "../UserMessage/UserMessage";
 const MainChatBody = (props, refs) => {
   // console.log(refs);
   // const { messagesEndRef, foundContainerChatRef } = refs;
+
+  const { isShowDetail } = props;
 
   const dispatch = useDispatch();
 

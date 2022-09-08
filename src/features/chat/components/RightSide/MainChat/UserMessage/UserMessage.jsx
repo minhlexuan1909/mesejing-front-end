@@ -3,6 +3,13 @@ import Zoom from "react-medium-image-zoom";
 
 const UserMessage = (props) => {
   const { item, handleImageLoaded, isAnother, isShowNameAndAvatar } = props;
+
+  const convertDateTime = (time) => {
+    let date = new Date(time);
+    return date.toLocaleString();
+  }
+
+
   return (
     <div
       className={`user-chat__container ${isAnother ? "another_user" : ""}`}
@@ -40,7 +47,7 @@ const UserMessage = (props) => {
             </Zoom>
           )}
           <div className="status_message">
-            <span>{item.createAt}</span>
+            <span>{ convertDateTime(item.createAt) }</span>
           </div>
         </div>
       </div>

@@ -29,6 +29,7 @@ import { tokenSelector } from "../../../../auth/services/authSlice";
 import {
   usersInRommSelector,
   selectedRoomSelector,
+  roomDetailSelector,
 } from "../../../services/room/roomSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { Modal, Input } from "antd";
@@ -37,11 +38,12 @@ import { userProfileAction } from "../../../../profile/services/userProfile/user
 import { userIdSelector } from "../../../../auth/services/authSlice";
 import axios from "axios";
 
-const RoomDetail = ({ roomDetail }) => {
+const RoomDetail = () => {
   const dispatch = useDispatch();
   // SELECTOR
   const token = useSelector(tokenSelector);
   const usersInRoom = useSelector(usersInRommSelector);
+  const roomDetail = useSelector(roomDetailSelector);
   // const roomDetail = useSelector(roomDetailSelector);
 
   // USE STATE

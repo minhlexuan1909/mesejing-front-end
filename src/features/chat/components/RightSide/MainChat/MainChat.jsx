@@ -1,53 +1,21 @@
 import "./MainChat.scss";
 
-import {
-  faChevronLeft,
-  faEllipsis,
-  faFaceLaughBeam,
-  faFileArrowUp,
-  faHeart,
-  faPaperPlane,
-  faUserPlus,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Input } from "antd";
-import axios from "axios";
-
 import React from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Shimmer from "react-shimmer-effect";
 
-import { mqttPayloadSelector } from "../../../../../services/mqtt/mqttSlice";
 import {
   tokenSelector,
   userIdSelector,
 } from "../../../../auth/services/authSlice";
-import { friendAction } from "../../../../profile/services/friend/friendSlice";
-import { userProfileAction } from "../../../../profile/services/userProfile/userProfileSlice";
-import {
-  hasMorePageSelector,
-  isGettingMessageSelector,
-  isSendingMessageSelector,
-  messageAction,
-  messageSelector,
-} from "../../../services/message/messageSlice";
-import {
-  getMessageRoomThunk,
-  sendMessageThunk,
-} from "../../../services/message/messageThunk";
-import {
-  roomAction,
-  roomDetailSelector,
-  selectedRoomSelector,
-} from "../../../services/room/roomSlice";
+import { messageAction } from "../../../services/message/messageSlice";
+import { getMessageRoomThunk } from "../../../services/message/messageThunk";
+import { selectedRoomSelector } from "../../../services/room/roomSlice";
 import { getDetailRoomThunk } from "../../../services/room/roomThunk";
-import AddFriendToGroup from "../AddFriendToGroup/AddFriendToGroup";
 import RoomDetail from "../RoomDetail/RoomDetail";
-import SystemMessage from "./SystemMessage/SystemMessage";
-import UserMessage from "./UserMessage/UserMessage";
 import MainChatBody from "./MainChatBody/MainChatBody";
 import MainChatHeader from "./MainChatHeader/MainChatHeader";
+
 const MainChat = () => {
   const dispatch = useDispatch();
 
@@ -59,11 +27,7 @@ const MainChat = () => {
   const selectedRoom = useSelector(selectedRoomSelector);
 
   // STATE
-  // const [roomID, setRoomID] = useState(null);
-  const [inputTextMessage, setInputTextMessage] = useState("");
-
-  const [isShowEmojis, setIsShowEmojis] = useState(false);
-  const [imgFile, setImgFile] = useState();
+  const [isShowDetail, setIsShowDetail] = useState(false);
 
   //CONST
   const dataSendMessage = {
@@ -92,9 +56,10 @@ const MainChat = () => {
     return (
       <div className={`mainChat__container`}>
         <div className="mainChat__wrapper">
-          <MainChatHeader />
-          <MainChatBody />
+          <MainChatHeader setIsShowDetail={setIsShowDetail} />
+          <MainChatBody isShowDetail={isShowDetail} />
         </div>
+        {isShowDetail && <RoomDetail />}
       </div>
     );
 };

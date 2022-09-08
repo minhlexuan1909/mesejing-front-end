@@ -5,27 +5,26 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { isGettingMessageSelector } from "../../../../services/message/messageSlice";
+import { useDispatch, useSelector } from "react-redux";
 import Shimmer from "react-shimmer-effect";
+
+import { userIdSelector } from "../../../../../auth/services/authSlice";
+import { friendAction } from "../../../../../profile/services/friend/friendSlice";
+import { userProfileAction } from "../../../../../profile/services/userProfile/userProfileSlice";
+import { isGettingMessageSelector } from "../../../../services/message/messageSlice";
 import {
   roomAction,
   roomDetailSelector,
 } from "../../../../services/room/roomSlice";
-import { useDispatch } from "react-redux";
-import { friendAction } from "../../../../../profile/services/friend/friendSlice";
-import { userProfileAction } from "../../../../../profile/services/userProfile/userProfileSlice";
-import { userIdSelector } from "../../../../../auth/services/authSlice";
-import RoomDetail from "../../RoomDetail/RoomDetail";
 import AddFriendToGroup from "../../AddFriendToGroup/AddFriendToGroup";
 
-const MainChatHeader = () => {
+const MainChatHeader = (props) => {
+  const { setIsShowDetail } = props;
   const dispatch = useDispatch();
 
   const isGettingMessage = useSelector(isGettingMessageSelector);
   const roomDetail = useSelector(roomDetailSelector);
   const userID = useSelector(userIdSelector);
-  const [isShowDetail, setIsShowDetail] = useState(false);
 
   const [isAddToGroupVisible, setIsAddToGroupVisible] = useState(false);
 
@@ -110,7 +109,7 @@ const MainChatHeader = () => {
             </div>
             <div
               className="header-option"
-              onClick={() => setIsShowDetail(!isShowDetail)}
+              onClick={() => setIsShowDetail((prev) => !prev)}
             >
               <FontAwesomeIcon icon={faEllipsis} />
             </div>
@@ -123,7 +122,6 @@ const MainChatHeader = () => {
           setIsAddToGroupVisible={setIsAddToGroupVisible}
         />
       )}
-      {isShowDetail && <RoomDetail roomDetail={roomDetail} />}
     </div>
   );
 };

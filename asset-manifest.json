@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/mesejing-front-end/static/css/main.85cb2dd4.css",
-    "main.js": "/mesejing-front-end/static/js/main.cdc2b0d1.js",
+    "main.css": "/mesejing-front-end/static/css/main.a54e84dd.css",
+    "main.js": "/mesejing-front-end/static/js/main.ac4ac113.js",
     "static/js/787.22edae46.chunk.js": "/mesejing-front-end/static/js/787.22edae46.chunk.js",
     "static/media/ProPTIT.png": "/mesejing-front-end/static/media/ProPTIT.f4cfd01894ff848515d3.png",
     "static/media/authCover.png": "/mesejing-front-end/static/media/authCover.bcbcdba62a05d9ea8f44.png",
     "static/media/add-friend-icon.jpg": "/mesejing-front-end/static/media/add-friend-icon.bd395620e013779acf5d.jpg",
     "index.html": "/mesejing-front-end/index.html",
-    "main.85cb2dd4.css.map": "/mesejing-front-end/static/css/main.85cb2dd4.css.map",
-    "main.cdc2b0d1.js.map": "/mesejing-front-end/static/js/main.cdc2b0d1.js.map",
+    "main.a54e84dd.css.map": "/mesejing-front-end/static/css/main.a54e84dd.css.map",
+    "main.ac4ac113.js.map": "/mesejing-front-end/static/js/main.ac4ac113.js.map",
     "787.22edae46.chunk.js.map": "/mesejing-front-end/static/js/787.22edae46.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.85cb2dd4.css",
-    "static/js/main.cdc2b0d1.js"
+    "static/css/main.a54e84dd.css",
+    "static/js/main.ac4ac113.js"
   ]
 }

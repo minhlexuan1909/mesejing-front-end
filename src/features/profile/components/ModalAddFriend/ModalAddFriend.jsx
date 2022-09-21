@@ -22,12 +22,14 @@ const ModalAddFriend = ({
   const [keyword, setKeyword] = useState("");
 
   const handleCancelModal = () => {
+    setKeyword("");
     setIsAddFriendVisible(false);
     setPage(1);
-    setKeyword("");
     dispatch(userSearchAction.removeListUserdFound());
   };
+
   useEffect(() => {
+    console.log("changed");
     if (keyword !== "") {
       dispatch(searchUserThunk({ keyword, token, page }));
     }
@@ -36,21 +38,29 @@ const ModalAddFriend = ({
   return (
     <Modal
       visible={isAddFriendVisible}
-      footer={[
-        <Button
-          type="primary"
-          form="add-friend-form"
-          htmlType="submit"
-          key="submit"
-        >
-          Find
-        </Button>,
-      ]}
+      footer={
+        null
+        //   [
+        //   <Button
+        //     type="primary"
+        //     form="add-friend-form"
+        //     htmlType="submit"
+        //     key="submit"
+        //   >
+        //     Find
+        //   </Button>,
+        // ]
+      }
       centered
       onCancel={handleCancelModal}
       title="Add friend"
     >
-      <SearchFriendForm page={page} setKeyword={setKeyword} />
+      <SearchFriendForm
+        keyword={keyword}
+        setKeyword={setKeyword}
+        page={page}
+        setPage={setPage}
+      />
       <ListFriendFound setPage={setPage} />
     </Modal>
   );
